@@ -1,6 +1,8 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import { getDocs, collection } from "firebase/firestore";
+import { Routes, Route, Link } from "react-router-dom";
+
 import { db } from "./config/firebase";
 
 function App() {
@@ -17,7 +19,19 @@ function App() {
       console.log(customers);
     })();
   }, []);
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      TSET
+      <main>
+        <Routes>
+          <Route path="/login" element={<h1>Login</h1>} />
+          <Route path="customers" element={<h1>Customers</h1>} />
+          <Route path="regions" element={<h1>Regions</h1>} />
+          <Route path="/" element={<h1>Home</h1>} />
+        </Routes>
+      </main>
+    </div>
+  );
 }
 
 export default App;
