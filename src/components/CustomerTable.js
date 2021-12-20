@@ -1,29 +1,39 @@
 import React, { useMemo } from "react";
 import { useTable, useSortBy } from "react-table";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-const customers = [
-  {
-    name: "Adriani",
-    address: "Jl. Fambol, Congpa La, Tangerang",
-    phone: "08776464623",
-    region: "Jakarta Barat",
-  },
-  {
-    name: "Marinee",
-    address: "Jl. Fambol, Congpa La, Tangerang",
-    phone: "08776464623",
-    region: "Jakarta Barat",
-  },
-  {
-    name: "Zaquelin",
-    address: "Jl. Fambol, Congpa La, Tangerang",
-    phone: "08776464623",
-    region: "Jakarta Barat",
-  },
-];
+// const customers = [
+//   {
+//     name: "Adriani",
+//     address: "Jl. Fambol, Congpa La, Tangerang",
+//     phone: "08776464623",
+//     region: "Jakarta Timur",
+//   },
+//   {
+//     name: "Marinee",
+//     address: "Jl. Fambol, Congpa La, Tangerang",
+//     phone: "03776464623",
+//     region: "Jakarta Barat",
+//   },
+//   {
+//     name: "Zaquelin",
+//     address: "Jl. Fambol, Congpa La, Tangerang",
+//     phone: "09776464623",
+//     region: "Jakarta Timur",
+//   },
+// ];
 
-export const CustomerTable = () => {
-  const data = useMemo(() => customers, []);
+export const CustomerTable = ({ customers }) => {
+  const data = useMemo(
+    () =>
+      customers.map((customer) => ({
+        name: customer.name,
+        address: customer.address.main,
+        phone: customer.phone.mobile,
+        region: customer.region,
+      })),
+    [customers]
+  );
   const columns = useMemo(
     () => [
       {
@@ -53,7 +63,7 @@ export const CustomerTable = () => {
     // apply the table props
     <table
       {...getTableProps()}
-      className="border border-collapse border-green-700 w-full"
+      className="border border-collapse w-full rounded-md shadow-md"
     >
       <thead className="bg-green-700 text-white font-bold">
         {
@@ -67,18 +77,22 @@ export const CustomerTable = () => {
                   // Apply the header cell props
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    className="border border-green-700"
+                    className="p-2 hover:bg-green-800"
                   >
-                    {
-                      // Render the header
-                      column.render("Header")
-                    }
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
+                    <span className="flex items-center justify-center">
+                      {
+                        // Render the header
+                        column.render("Header")
+                      }
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <FaChevronDown className="ml-2 inline-block align-middle" />
+                        ) : (
+                          <FaChevronUp className="ml-2 inline-block" />
+                        )
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </th>
                 ))
@@ -107,10 +121,7 @@ export const CustomerTable = () => {
                   row.cells.map((cell, index) => {
                     // Apply the cell props
                     return (
-                      <td
-                        {...cell.getCellProps()}
-                        className={`border border-green-700 `}
-                      >
+                      <td {...cell.getCellProps()} className={`p-2`}>
                         {
                           // Render the cell contents
                           cell.render("Cell")
