@@ -32,6 +32,7 @@ export const CustomerList = ({ customers, regions }) => {
 
   return (
     <div>
+      <h1 className="mb-4 text-2xl font-bold">Customer List</h1>
       <div className="mb-4 grid grid-cols-12 gap-4">
         <div className="col-span-8">
           <label
