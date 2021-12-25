@@ -1,6 +1,5 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { getDocs, collection } from "firebase/firestore";
 import { Routes, Route, Link } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 

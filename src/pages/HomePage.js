@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useEffect } from "react/cjs/react.development";
-import { CustomerTable } from "../components/CustomerTable";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import {
   onSnapshot,
@@ -43,9 +42,9 @@ export const HomePage = () => {
 
       const customerArray = [];
       for (const customerDoc of querySnapshot.docs) {
-        const region = customerDoc.data().region
-          ? regions.find((region) => region.id === customerDoc.data().region)
-          : null;
+        // const region = customerDoc.data().region
+        //   ? regions.find((region) => region.id === customerDoc.data().region)
+        //   : null;
 
         const address = addresses.find(
           (address) => address.id === customerDoc.id
