@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import Modal from "react-modal";
+import { CustomerDetails } from "./CustomerDetails";
 
 export const CustomerList = ({ customers, regions }) => {
-  //   console.log(customers);
   const [globalFilter, setGlobalFilter] = useState("");
   const [regionFilter, setRegionFilter] = useState("all");
+  const [customerDetails, setCustomerDetails] = useState(null);
+
+  const openDetailsModal = (customer) => {
+    setCustomerDetails(customer);
+  };
 
   const filteredCustomers = (customers) => {
     if (globalFilter) {
@@ -82,6 +88,7 @@ export const CustomerList = ({ customers, regions }) => {
                 .filter((customer) => customer.region === region.id)
                 .map((customer, index) => (
                   <div
+                    onClick={() => openDetailsModal(customer)}
                     key={customer.id}
                     className={`hover:bg-green-200 cursor-pointer p-2 grid grid-cols-12 ${
                       index % 2 === 0 ? "bg-green-100" : "bg-green-50"
@@ -96,6 +103,15 @@ export const CustomerList = ({ customers, regions }) => {
           </div>
         ))}
       </div>
+      <Modal
+        isOpen={!!customerDetails}
+        onRequestClose={() => setCustomerDetails(null)}
+      >
+        <CustomerDetails
+          customer={customerDetails}
+          onClose={() => setCustomerDetails(null)}
+        />
+      </Modal>
     </div>
   );
 };

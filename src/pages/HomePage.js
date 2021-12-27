@@ -19,6 +19,7 @@ export const HomePage = () => {
   useEffect(() => {
     const customerQuery = query(collection(db, "customers"), limit(5));
     const unsub = onSnapshot(customerQuery, async (querySnapshot) => {
+      console.log("On snapshotting....");
       const [regionsSnapshot, addressesSnapshot, phoneNumbersSnapshot] =
         await Promise.all([
           getDocs(collection(db, "regions")),
@@ -42,10 +43,6 @@ export const HomePage = () => {
 
       const customerArray = [];
       for (const customerDoc of querySnapshot.docs) {
-        // const region = customerDoc.data().region
-        //   ? regions.find((region) => region.id === customerDoc.data().region)
-        //   : null;
-
         const address = addresses.find(
           (address) => address.id === customerDoc.id
         );
@@ -57,7 +54,6 @@ export const HomePage = () => {
           ...customerDoc.data(),
           address,
           phone: phoneNumber,
-          // ...(region ? { region: region.name } : {}),
         };
         customerArray.push(customer);
       }
