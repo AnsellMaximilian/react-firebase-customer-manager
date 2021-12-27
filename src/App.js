@@ -30,13 +30,14 @@ function App() {
             }
           />
           <Route
-            path="/"
+            path="/customers"
             element={
               <PrivateRoute isAuthenticated={user}>
                 <HomePage />
               </PrivateRoute>
             }
           />
+          <Route path="/" element={<Navigate to="/customers" />} />
         </Routes>
       </main>
     </div>
