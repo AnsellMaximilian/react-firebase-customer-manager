@@ -1,11 +1,13 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
-import { auth, db } from "./config/firebase";
+import { auth } from "./config/firebase";
 import { LoginPage } from "./pages/LoginPage";
 import { HomePage } from "./pages/HomePage";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { GuestRoute } from "./components/GuestRoute";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -19,8 +21,22 @@ function App() {
     <div className="App">
       <main>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/login"
+            element={
+              <GuestRoute isAuthenticated={user}>
+                <LoginPage />
+              </GuestRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute isAuthenticated={user}>
+                <HomePage />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </main>
     </div>
