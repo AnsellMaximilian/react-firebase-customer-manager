@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { CustomerDetails } from "./CustomerDetails";
+import { FaFilePdf } from "react-icons/fa";
 
 export const CustomerList = ({ customers, regions }) => {
   const [globalFilter, setGlobalFilter] = useState("");
@@ -39,6 +40,14 @@ export const CustomerList = ({ customers, regions }) => {
   return (
     <div>
       <h1 className="mb-4 text-2xl font-bold">Customer List</h1>
+      <div className="mb-4 flex gap-4 justify-end">
+        <button className="px-3 py-1 rounded-md bg-green-700 text-white font-bold">
+          Add New
+        </button>
+        <button className="px-3 py-1 rounded-md bg-red-600 text-white font-bold">
+          <FaFilePdf className="" />
+        </button>
+      </div>
       <div className="mb-4 grid grid-cols-12 gap-4">
         <div className="col-span-8">
           <label
