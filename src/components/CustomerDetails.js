@@ -73,13 +73,16 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   };
 
   const deleteCustomer = async (customerId) => {
-    onClose();
+    const confirmed = window.confirm("Are you sure?");
+    if (confirmed) {
+      onClose();
 
-    try {
-      await deleteDoc(doc(db, "customers", customerId));
-      console.log(`Deleted customer with id ${customerId}`);
-    } catch (error) {
-      console.log(error);
+      try {
+        await deleteDoc(doc(db, "customers", customerId));
+        console.log(`Deleted customer with id ${customerId}`);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
