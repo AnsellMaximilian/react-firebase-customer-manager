@@ -9,6 +9,7 @@ import {
   Timestamp,
   collection,
   addDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import clearProperties from "../utils/clearProperties";
@@ -71,6 +72,17 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
     }
   };
 
+  const deleteCustomer = async (customerId) => {
+    onClose();
+
+    try {
+      await deleteDoc(doc(db, "customers", customerId));
+      console.log(`Deleted customer with id ${customerId}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (customer) {
       setAddresses(customer.address);
@@ -103,12 +115,22 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
           <h2 className="text-2xl font-bold">{customerName}</h2>
         )}
         {!isNew && (
-          <button
-            className="text-green-600 ml-2"
-            onClick={() => setIsEditMode(!isEditMode)}
-          >
-            {isEditMode ? "Cancel Edit" : "Edit"}
-          </button>
+          <div>
+            {!isEditMode && (
+              <button
+                className="text-red-600"
+                onClick={() => deleteCustomer(customer.id)}
+              >
+                Delete
+              </button>
+            )}
+            <button
+              className="text-green-600 ml-2"
+              onClick={() => setIsEditMode(!isEditMode)}
+            >
+              {isEditMode ? "Cancel Edit" : "Edit"}
+            </button>
+          </div>
         )}
       </div>
       <div className="mb-4">
