@@ -5,14 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import Modal from "react-modal";
+import { Snackbar } from "./components/Snackbar";
 
 Modal.setAppElement("#root");
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Snackbar>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Snackbar>
   </React.StrictMode>,
   document.getElementById("root")
 );

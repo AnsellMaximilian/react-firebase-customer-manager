@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CircleLoader from "react-spinners/CircleLoader";
-import { useEffect } from "react/cjs/react.development";
 import { FaTimes } from "react-icons/fa";
 import {
   updateDoc,
@@ -13,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import clearProperties from "../utils/clearProperties";
+import { SnackbarContext } from "../contexts/SnackbarContext";
 
 export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [isEditMode, setIsEditMode] = useState(isNew || false);
@@ -22,6 +22,9 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [customerRegion, setCustomerRegion] = useState(null);
   const [newAddress, setNewAddress] = useState(null);
   const [newPhoneNumber, setNewPhoneNumber] = useState(null);
+
+  const { openSnackbar } = useContext(SnackbarContext);
+
   const updateCustomer = async (customerId) => {
     setIsEditMode(false);
 
@@ -41,9 +44,9 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         clearProperties(phoneNumbers, ["id"])
       );
 
-      console.log("Customer Updated");
+      openSnackbar(`Updated customer "${customerName}"`, "success");
     } catch (error) {
-      console.log(error);
+      openSnackbar("Something happened. Failed to update.", "danger");
     }
   };
 
@@ -66,9 +69,9 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         clearProperties(phoneNumbers, ["id"])
       );
 
-      console.log(`added customer ${customer.name}`);
+      openSnackbar(`Added customer "${customerName}"`, "success");
     } catch (error) {
-      console.log(error);
+      openSnackbar("Something happened. Failed to add.", "danger");
     }
   };
 
@@ -79,9 +82,9 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
 
       try {
         await deleteDoc(doc(db, "customers", customerId));
-        console.log(`Deleted customer with id ${customerId}`);
+        openSnackbar(`Deleted customer "${customerName}"`, "success");
       } catch (error) {
-        console.log(error);
+        openSnackbar("Something happened. Failed to delete.", "danger");
       }
     }
   };

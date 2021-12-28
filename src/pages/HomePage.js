@@ -18,7 +18,7 @@ export const HomePage = () => {
   useEffect(() => {
     const customerQuery = query(collection(db, "customers"), limit(5));
     const unsub = onSnapshot(customerQuery, async (querySnapshot) => {
-      console.log("On snapshotting....");
+      // console.log("On snapshotting....");
       const [regionsSnapshot, addressesSnapshot, phoneNumbersSnapshot] =
         await Promise.all([
           getDocs(collection(db, "regions")),
