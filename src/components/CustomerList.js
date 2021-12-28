@@ -96,7 +96,7 @@ export const CustomerList = ({ customers, regions }) => {
           </select>
         </div>
       </div>
-      <div className="rounded-md shadow-md">
+      <div className="rounded-md shadow-md print-container">
         {filteredRegions(regions).map((region) => (
           <div key={region.id}>
             <div className="bg-green-700 text-white p-2 font-bold">
