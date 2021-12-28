@@ -2,24 +2,32 @@ import React, { useState } from "react";
 import CircleLoader from "react-spinners/CircleLoader";
 import { useEffect } from "react/cjs/react.development";
 import { FaTimes } from "react-icons/fa";
-import { updateDoc, doc, setDoc } from "firebase/firestore";
+import {
+  updateDoc,
+  doc,
+  setDoc,
+  Timestamp,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 import clearProperties from "../utils/clearProperties";
 
-export const CustomerDetails = ({ customer, onClose }) => {
-  const [isEditMode, setIsEditMode] = useState(false);
+export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
+  const [isEditMode, setIsEditMode] = useState(isNew || false);
   const [addresses, setAddresses] = useState(null);
   const [phoneNumbers, setPhoneNumbers] = useState(null);
   const [customerName, setCustomerName] = useState("");
+  const [customerRegion, setCustomerRegion] = useState(null);
   const [newAddress, setNewAddress] = useState(null);
   const [newPhoneNumber, setNewPhoneNumber] = useState(null);
-
   const updateCustomer = async (customerId) => {
     setIsEditMode(false);
 
     try {
       await updateDoc(doc(db, "customers", customerId), {
         name: customerName,
+        region: customerRegion,
       });
 
       await setDoc(
@@ -38,15 +46,45 @@ export const CustomerDetails = ({ customer, onClose }) => {
     }
   };
 
+  const createCustomer = async () => {
+    onClose();
+    try {
+      const cusDocRef = await addDoc(collection(db, "customers"), {
+        name: customerName,
+        region: customerRegion,
+        createdAt: Timestamp.now(),
+      });
+
+      await setDoc(
+        doc(db, "addresses", cusDocRef.id),
+        clearProperties(addresses, ["id"])
+      );
+
+      await setDoc(
+        doc(db, "phoneNumbers", cusDocRef.id),
+        clearProperties(phoneNumbers, ["id"])
+      );
+
+      console.log(`added customer ${customer.name}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (customer) {
       setAddresses(customer.address);
       setPhoneNumbers(customer.phone);
       setCustomerName(customer.name);
+      setCustomerRegion(customer.region);
     }
   }, [customer]);
 
-  return customer && addresses && phoneNumbers ? (
+  return customer &&
+    addresses &&
+    phoneNumbers &&
+    customerRegion &&
+    regions.length > 0 ? (
     <div>
       <div className="text-right mb-4">
         <button className="ml-2" onClick={onClose}>
@@ -64,12 +102,14 @@ export const CustomerDetails = ({ customer, onClose }) => {
         ) : (
           <h2 className="text-2xl font-bold">{customerName}</h2>
         )}
-        <button
-          className="text-green-600 ml-2"
-          onClick={() => setIsEditMode(!isEditMode)}
-        >
-          {isEditMode ? "Cancel Edit" : "Edit"}
-        </button>
+        {!isNew && (
+          <button
+            className="text-green-600 ml-2"
+            onClick={() => setIsEditMode(!isEditMode)}
+          >
+            {isEditMode ? "Cancel Edit" : "Edit"}
+          </button>
+        )}
       </div>
       <div className="mb-4">
         <h3 className="text-lg font-bold">Phone Numbers</h3>
@@ -173,6 +213,27 @@ export const CustomerDetails = ({ customer, onClose }) => {
               + Add Phone Number
             </button>
           ))}
+      </div>
+      <div className="mb-4">
+        <h3 className="text-lg font-bold">Region</h3>
+        <div>
+          {isEditMode ? (
+            <select
+              value={customerRegion}
+              onChange={(e) => setCustomerRegion(e.target.value)}
+            >
+              {regions.map((region) => (
+                <option key={region.id} value={region.id}>
+                  {region.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <div>
+              {regions.find((region) => region.id === customerRegion).name}
+            </div>
+          )}
+        </div>
       </div>
       <div className="mb-4">
         <h3 className="text-lg font-bold">Alamat</h3>
@@ -281,7 +342,13 @@ export const CustomerDetails = ({ customer, onClose }) => {
         <div className="text-right">
           <button
             className="px-3 py-1 rounded-md bg-green-700 text-white font-bold"
-            onClick={() => updateCustomer(customer.id)}
+            onClick={() => {
+              if (isNew) {
+                createCustomer();
+              } else {
+                updateCustomer(customer.id);
+              }
+            }}
           >
             Save Changes
           </button>

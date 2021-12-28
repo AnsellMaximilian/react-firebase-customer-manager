@@ -41,7 +41,17 @@ export const CustomerList = ({ customers, regions }) => {
     <div>
       <h1 className="mb-4 text-2xl font-bold">Customer List</h1>
       <div className="mb-4 flex gap-4 justify-end">
-        <button className="px-3 py-1 rounded-md bg-green-700 text-white font-bold">
+        <button
+          className="px-3 py-1 rounded-md bg-green-700 text-white font-bold"
+          onClick={() => {
+            setCustomerDetails({
+              name: "New Customer",
+              region: regions[0].id,
+              address: {},
+              phone: {},
+            });
+          }}
+        >
           Add New
         </button>
         <button className="px-3 py-1 rounded-md bg-red-600 text-white font-bold">
@@ -119,6 +129,8 @@ export const CustomerList = ({ customers, regions }) => {
         <CustomerDetails
           customer={customerDetails}
           onClose={() => setCustomerDetails(null)}
+          regions={regions}
+          isNew={!!!customerDetails?.id}
         />
       </Modal>
     </div>
