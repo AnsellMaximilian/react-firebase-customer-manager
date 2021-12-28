@@ -54,7 +54,10 @@ export const CustomerList = ({ customers, regions }) => {
         >
           Add New
         </button>
-        <button className="px-3 py-1 rounded-md bg-red-600 text-white font-bold">
+        <button
+          className="px-3 py-1 rounded-md bg-red-600 text-white font-bold"
+          onClick={() => window.print()}
+        >
           <FaFilePdf className="" />
         </button>
       </div>
@@ -115,7 +118,9 @@ export const CustomerList = ({ customers, regions }) => {
                   >
                     <div className="col-span-3">{customer.name}</div>
                     <div className="col-span-3">{customer.phone.mobile}</div>
-                    <div className="col-span-6">{customer.address.main}</div>
+                    <div className="col-span-6 text-left">
+                      {customer.address.main}
+                    </div>
                   </div>
                 ))}
             </div>
