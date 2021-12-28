@@ -99,7 +99,10 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
     regions.length > 0 ? (
     <div>
       <div className="text-right mb-4">
-        <button className="ml-2" onClick={onClose}>
+        <button
+          className="ml-2 hover:text-black text-gray-600"
+          onClick={onClose}
+        >
           Close
         </button>
       </div>
@@ -118,14 +121,14 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
           <div>
             {!isEditMode && (
               <button
-                className="text-red-600"
+                className="text-red-600 hover:text-red-700"
                 onClick={() => deleteCustomer(customer.id)}
               >
                 Delete
               </button>
             )}
             <button
-              className="text-green-600 ml-2"
+              className="text-green-600 ml-2 hover:text-green-700"
               onClick={() => setIsEditMode(!isEditMode)}
             >
               {isEditMode ? "Cancel Edit" : "Edit"}
