@@ -15,12 +15,6 @@ export const CustomerDetails = ({ customer, onClose }) => {
   const [newPhoneNumber, setNewPhoneNumber] = useState(null);
 
   const updateCustomer = async (customerId) => {
-    // console.log({
-    //   addresses: clearProperties(addresses, ["id"]),
-    //   phoneNumbers: clearProperties(phoneNumbers, ["id"]),
-    //   customerName,
-    // });
-
     setIsEditMode(false);
 
     try {
