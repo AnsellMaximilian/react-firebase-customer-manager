@@ -66,27 +66,33 @@ export const HomePage = () => {
       }
     };
 
-    const unsubCustomerSnapshot = onSnapshot(customerQuery, async () => {
+    const handleOnSnapshot = async () => {
       if (!isListeningToSnapshot) {
         isListeningToSnapshot = true;
         await getCustomers(customerQuery);
         isListeningToSnapshot = false;
       }
-    });
-    const unsubAddressSnapshot = onSnapshot(addressQuery, async () => {
-      if (!isListeningToSnapshot) {
-        isListeningToSnapshot = true;
-        await getCustomers(customerQuery);
-        isListeningToSnapshot = false;
-      }
-    });
-    const unsubPhoneNumberSnapshot = onSnapshot(phoneNumberQuery, async () => {
-      if (!isListeningToSnapshot) {
-        isListeningToSnapshot = true;
-        await getCustomers(customerQuery);
-        isListeningToSnapshot = false;
-      }
-    });
+    };
+
+    const handleOnSnapshotError = (err) => {
+      console.log(err.message);
+    };
+
+    const unsubCustomerSnapshot = onSnapshot(
+      customerQuery,
+      handleOnSnapshot,
+      handleOnSnapshotError
+    );
+    const unsubAddressSnapshot = onSnapshot(
+      addressQuery,
+      handleOnSnapshot,
+      handleOnSnapshotError
+    );
+    const unsubPhoneNumberSnapshot = onSnapshot(
+      phoneNumberQuery,
+      handleOnSnapshot,
+      handleOnSnapshotError
+    );
 
     return () => {
       isMounted = false;
