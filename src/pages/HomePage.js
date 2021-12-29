@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import PropagateLoader from "react-spinners/PropagateLoader";
+import PulseLoader from "react-spinners/PulseLoader";
 import { onSnapshot, collection, query, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Header } from "../components/Header";
@@ -109,7 +109,10 @@ export const HomePage = () => {
       <Header />
       <div className="px-4 mt-4 container mx-auto">
         {customers.length === 0 || regions.length === 0 ? (
-          <PropagateLoader />
+          <div>
+            <div className="font-bold text-2xl mb-4">Loading customers...</div>
+            <PulseLoader color="rgb(21 128 61)" size={25} />
+          </div>
         ) : (
           <CustomerList customers={customers} regions={regions} />
         )}

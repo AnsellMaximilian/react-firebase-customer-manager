@@ -70,34 +70,37 @@ export const RegionsPage = () => {
   return (
     <div>
       <Header />
-      <h1 className="mt-4 text-2xl font-bold">Regions List</h1>
       <div className="px-4 mt-4 container mx-auto">
         {regions.length > 0 ? (
-          <div className="grid grid-cols-12 shadow-md">
-            {regions.map((region) => {
-              return (
-                <div
-                  className="hover:relative group col-span-6 md:col-span-3 p-10 border cursor-pointer bg-white hover:scale-125 transition-all hover:bg-green-700 hover:text-white"
-                  key={region.id}
-                >
-                  <button
-                    onClick={() => deleteRegion(region)}
-                    className="hidden hover:bg-red-700 absolute right-2 top-2 group-hover:block bg-red-600 text-white p-2 rounded-md"
+          <div>
+            <h1 className="mt-4 text-2xl font-bold">Regions List</h1>
+
+            <div className="mt-4 grid grid-cols-12 shadow-md">
+              {regions.map((region) => {
+                return (
+                  <div
+                    className="hover:relative group col-span-6 md:col-span-3 p-10 border cursor-pointer bg-white hover:scale-125 transition-all hover:bg-green-700 hover:text-white"
+                    key={region.id}
                   >
-                    <FaTrash size={12.5} />
-                  </button>
-                  <div>{region.name}</div>
+                    <button
+                      onClick={() => deleteRegion(region)}
+                      className="hidden hover:bg-red-700 absolute right-2 top-2 group-hover:block bg-red-600 text-white p-2 rounded-md"
+                    >
+                      <FaTrash size={12.5} />
+                    </button>
+                    <div>{region.name}</div>
+                  </div>
+                );
+              })}
+              <div
+                className="flex col-span-6 md:col-span-3 p-8 border cursor-pointer bg-white hover:scale-125 transition-all hover:bg-green-700 hover:text-white"
+                key="new-region"
+                title="Add new region"
+                onClick={() => setIsNewRegionModalOpen(true)}
+              >
+                <div className="flex justify-center items-center w-full">
+                  <FaPlus size={25} />
                 </div>
-              );
-            })}
-            <div
-              className="flex col-span-6 md:col-span-3 p-8 border cursor-pointer bg-white hover:scale-125 transition-all hover:bg-green-700 hover:text-white"
-              key="new-region"
-              title="Add new region"
-              onClick={() => setIsNewRegionModalOpen(true)}
-            >
-              <div className="flex justify-center items-center w-full">
-                <FaPlus size={25} />
               </div>
             </div>
           </div>
