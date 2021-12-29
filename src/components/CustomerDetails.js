@@ -263,6 +263,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         <div>
           {isEditMode ? (
             <select
+              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
               value={customerRegion}
               onChange={(e) => setCustomerRegion(e.target.value)}
             >
