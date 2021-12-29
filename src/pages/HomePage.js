@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import { onSnapshot, collection, query, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Header } from "../components/Header";
 import { CustomerList } from "../components/CustomerList";
+import { SnackbarContext } from "../contexts/SnackbarContext";
 
 export const HomePage = () => {
   const [customers, setCustomers] = useState([]);
   const [regions, setRegions] = useState([]);
+  const snackbarContextRef = useRef(useContext(SnackbarContext));
 
   useEffect(() => {
+    console.log("hopefully this only gets executed after first render");
     const customerQuery = query(collection(db, "customers"));
     const addressQuery = query(collection(db, "addresses"));
     const phoneNumberQuery = query(collection(db, "phoneNumbers"));
@@ -75,7 +78,7 @@ export const HomePage = () => {
     };
 
     const handleOnSnapshotError = (err) => {
-      console.log(err.message);
+      snackbarContextRef.current.openSnackbar(err.message, "danger");
     };
 
     const unsubCustomerSnapshot = onSnapshot(
