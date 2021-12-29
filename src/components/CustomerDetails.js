@@ -14,7 +14,13 @@ import { db } from "../config/firebase";
 import clearProperties from "../utils/clearProperties";
 import { SnackbarContext } from "../contexts/SnackbarContext";
 
-export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
+export const CustomerDetails = ({
+  customer,
+  onClose,
+  isNew,
+  regions,
+  getCustomers,
+}) => {
   const [isEditMode, setIsEditMode] = useState(isNew || false);
   const [addresses, setAddresses] = useState(null);
   const [phoneNumbers, setPhoneNumbers] = useState(null);
@@ -49,6 +55,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         doc(db, "phoneNumbers", customerId),
         clearProperties(phoneNumbers, ["id"])
       );
+      getCustomers();
 
       openSnackbar(`Updated customer "${customerName}"`, "success");
     } catch (error) {
@@ -81,6 +88,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         doc(db, "phoneNumbers", cusDocRef.id),
         clearProperties(phoneNumbers, ["id"])
       );
+      getCustomers();
 
       openSnackbar(`Added customer "${customerName}"`, "success");
     } catch (error) {
@@ -95,6 +103,8 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
 
       try {
         await deleteDoc(doc(db, "customers", customerId));
+        getCustomers();
+
         openSnackbar(`Deleted customer "${customerName}"`, "success");
       } catch (error) {
         openSnackbar("Something happened. Failed to delete.", "danger");

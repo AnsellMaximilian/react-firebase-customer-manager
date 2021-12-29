@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { CustomerDetails } from "./CustomerDetails";
 import { FaFilePdf } from "react-icons/fa";
 
-export const CustomerList = ({ customers, regions }) => {
+export const CustomerList = ({ customers, regions, getCustomers }) => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [regionFilter, setRegionFilter] = useState("all");
   const [customerDetails, setCustomerDetails] = useState(null);
@@ -137,6 +137,7 @@ export const CustomerList = ({ customers, regions }) => {
           onClose={() => setCustomerDetails(null)}
           regions={regions}
           isNew={!!!customerDetails?.id}
+          getCustomers={getCustomers}
         />
       </Modal>
     </div>

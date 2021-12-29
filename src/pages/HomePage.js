@@ -1,6 +1,12 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  useCallback,
+} from "react";
 import PulseLoader from "react-spinners/PulseLoader";
-import { onSnapshot, collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Header } from "../components/Header";
 import { CustomerList } from "../components/CustomerList";
@@ -11,16 +17,12 @@ export const HomePage = () => {
   const [regions, setRegions] = useState([]);
   const snackbarContextRef = useRef(useContext(SnackbarContext));
 
-  useEffect(() => {
-    const customerQuery = query(collection(db, "customers"));
-    const addressQuery = query(collection(db, "addresses"));
-    const phoneNumberQuery = query(collection(db, "phoneNumbers"));
+  const getCustomers = useCallback(async () => {
+    console.log("getting customers...");
 
-    let isListeningToSnapshot = false;
-    let isMounted = true;
+    try {
+      const customerQuery = query(collection(db, "customers"));
 
-    const getCustomers = async () => {
-      console.log("getting customers...");
       const [
         customersSnapshot,
         regionsSnapshot,
@@ -63,47 +65,20 @@ export const HomePage = () => {
         };
         customerArray.push(customer);
       }
-      if (isMounted) {
-        setCustomers(customerArray);
-        setRegions(regions);
-      }
-    };
-
-    const handleOnSnapshot = async () => {
-      if (!isListeningToSnapshot) {
-        isListeningToSnapshot = true;
-        await getCustomers(customerQuery);
-        isListeningToSnapshot = false;
-      }
-    };
-
-    const handleOnSnapshotError = (err) => {
-      snackbarContextRef.current.openSnackbar(err.message, "danger");
-    };
-
-    const unsubCustomerSnapshot = onSnapshot(
-      customerQuery,
-      handleOnSnapshot,
-      handleOnSnapshotError
-    );
-    const unsubAddressSnapshot = onSnapshot(
-      addressQuery,
-      handleOnSnapshot,
-      handleOnSnapshotError
-    );
-    const unsubPhoneNumberSnapshot = onSnapshot(
-      phoneNumberQuery,
-      handleOnSnapshot,
-      handleOnSnapshotError
-    );
-
-    return () => {
-      isMounted = false;
-      unsubCustomerSnapshot();
-      unsubAddressSnapshot();
-      unsubPhoneNumberSnapshot();
-    };
+      setCustomers(customerArray);
+      setRegions(regions);
+    } catch (error) {
+      snackbarContextRef.current.openSnackbar(error.message, "danger");
+    }
   }, []);
+
+  useEffect(() => {
+    console.log("hopefully only first mounting");
+
+    getCustomers();
+
+    return () => {};
+  }, [getCustomers]);
 
   return (
     <div>
@@ -115,7 +90,11 @@ export const HomePage = () => {
             <PulseLoader color="rgb(21 128 61)" size={25} />
           </div>
         ) : (
-          <CustomerList customers={customers} regions={regions} />
+          <CustomerList
+            customers={customers}
+            regions={regions}
+            getCustomers={getCustomers}
+          />
         )}
       </div>
     </div>
