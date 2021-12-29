@@ -12,7 +12,6 @@ export const HomePage = () => {
   const snackbarContextRef = useRef(useContext(SnackbarContext));
 
   useEffect(() => {
-    console.log("hopefully this only gets executed after first render");
     const customerQuery = query(collection(db, "customers"));
     const addressQuery = query(collection(db, "addresses"));
     const phoneNumberQuery = query(collection(db, "phoneNumbers"));

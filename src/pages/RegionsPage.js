@@ -7,7 +7,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import Modal from "react-modal";
 import PulseLoader from "react-spinners/PulseLoader";
 import { Header } from "../components/Header";
@@ -19,7 +19,7 @@ import { SnackbarContext } from "../contexts/SnackbarContext";
 export const RegionsPage = () => {
   const [regions, setRegions] = useState([]);
   const [isNewRegionModalOpen, setIsNewRegionModalOpen] = useState(false);
-  const { openSnackbar } = useContext(SnackbarContext);
+  const snackbarContext = useRef(useContext(SnackbarContext));
 
   const closeNewRegionModal = () => setIsNewRegionModalOpen(false);
 
@@ -29,16 +29,19 @@ export const RegionsPage = () => {
     );
     const regionCustomersCount = regionCustomers.docs.length;
     if (regionCustomersCount > 0) {
-      openSnackbar(
+      snackbarContext.current.openSnackbar(
         `Cannot delete. There are ${regionCustomersCount} customers in this region.`,
         "danger"
       );
     } else {
       try {
         await deleteDoc(doc(db, "regions", region.id));
-        openSnackbar(`Successfully deleted region "${region.name}"`, "success");
+        snackbarContext.current.openSnackbar(
+          `Successfully deleted region "${region.name}"`,
+          "success"
+        );
       } catch (error) {
-        openSnackbar(
+        snackbarContext.current.openSnackbar(
           `Something happened. Cannot delete region "${region.name}"`,
           "danger"
         );
@@ -49,13 +52,19 @@ export const RegionsPage = () => {
   useEffect(() => {
     const regionsQuery = query(collection(db, "regions"));
 
-    const unsub = onSnapshot(regionsQuery, async (querySnapshot) => {
-      const regionDocs = querySnapshot.docs.map((regionDoc) => ({
-        id: regionDoc.id,
-        ...regionDoc.data(),
-      }));
-      setRegions(regionDocs);
-    });
+    const unsub = onSnapshot(
+      regionsQuery,
+      async (querySnapshot) => {
+        const regionDocs = querySnapshot.docs.map((regionDoc) => ({
+          id: regionDoc.id,
+          ...regionDoc.data(),
+        }));
+        setRegions(regionDocs);
+      },
+      (err) => {
+        snackbarContext.current.openSnackbar(err.message, "danger");
+      }
+    );
     return () => unsub();
   }, []);
   return (
