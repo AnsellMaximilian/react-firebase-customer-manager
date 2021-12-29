@@ -17,14 +17,24 @@ export const HomePage = () => {
 
   useEffect(() => {
     const customerQuery = query(collection(db, "customers"), limit(5));
-    const unsub = onSnapshot(customerQuery, async (querySnapshot) => {
-      // console.log("On snapshotting....");
-      const [regionsSnapshot, addressesSnapshot, phoneNumbersSnapshot] =
-        await Promise.all([
-          getDocs(collection(db, "regions")),
-          getDocs(collection(db, "addresses")),
-          getDocs(collection(db, "phoneNumbers")),
-        ]);
+    const addressQuery = query(collection(db, "addresses"));
+    const phoneNumberQuery = query(collection(db, "phoneNumbers"));
+
+    let isListeningToSnapshot = false;
+    let isMounted = true;
+
+    const getCustomers = async () => {
+      const [
+        customersSnapshot,
+        regionsSnapshot,
+        addressesSnapshot,
+        phoneNumbersSnapshot,
+      ] = await Promise.all([
+        getDocs(customerQuery),
+        getDocs(collection(db, "regions")),
+        getDocs(collection(db, "addresses")),
+        getDocs(collection(db, "phoneNumbers")),
+      ]);
       const regions = regionsSnapshot.docs.map((region) => ({
         id: region.id,
         ...region.data(),
@@ -41,7 +51,7 @@ export const HomePage = () => {
       }));
 
       const customerArray = [];
-      for (const customerDoc of querySnapshot.docs) {
+      for (const customerDoc of customersSnapshot.docs) {
         const address = addresses.find(
           (address) => address.id === customerDoc.id
         );
@@ -51,16 +61,45 @@ export const HomePage = () => {
         const customer = {
           id: customerDoc.id,
           ...customerDoc.data(),
-          address,
-          phone: phoneNumber,
+          address: address ? address : {},
+          phone: phoneNumber ? phoneNumber : {},
         };
         customerArray.push(customer);
       }
-      setCustomers(customerArray);
-      setRegions(regions);
+      if (isMounted) {
+        setCustomers(customerArray);
+        setRegions(regions);
+      }
+    };
+
+    const unsubCustomerSnapshot = onSnapshot(customerQuery, async () => {
+      if (!isListeningToSnapshot) {
+        isListeningToSnapshot = true;
+        await getCustomers(customerQuery);
+        isListeningToSnapshot = false;
+      }
+    });
+    const unsubAddressSnapshot = onSnapshot(addressQuery, async () => {
+      if (!isListeningToSnapshot) {
+        isListeningToSnapshot = true;
+        await getCustomers(customerQuery);
+        isListeningToSnapshot = false;
+      }
+    });
+    const unsubPhoneNumberSnapshot = onSnapshot(phoneNumberQuery, async () => {
+      if (!isListeningToSnapshot) {
+        isListeningToSnapshot = true;
+        await getCustomers(customerQuery);
+        isListeningToSnapshot = false;
+      }
     });
 
-    return () => unsub();
+    return () => {
+      isMounted = false;
+      unsubCustomerSnapshot();
+      unsubAddressSnapshot();
+      unsubPhoneNumberSnapshot();
+    };
   }, []);
 
   return (
