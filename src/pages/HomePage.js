@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropagateLoader from "react-spinners/PropagateLoader";
-import {
-  onSnapshot,
-  collection,
-  limit,
-  query,
-  getDocs,
-} from "firebase/firestore";
+import { onSnapshot, collection, query, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Header } from "../components/Header";
 import { CustomerList } from "../components/CustomerList";
@@ -16,7 +10,7 @@ export const HomePage = () => {
   const [regions, setRegions] = useState([]);
 
   useEffect(() => {
-    const customerQuery = query(collection(db, "customers"), limit(5));
+    const customerQuery = query(collection(db, "customers"));
     const addressQuery = query(collection(db, "addresses"));
     const phoneNumberQuery = query(collection(db, "phoneNumbers"));
 
