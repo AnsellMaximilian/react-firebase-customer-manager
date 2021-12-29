@@ -27,7 +27,13 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
 
   const updateCustomer = async (customerId) => {
     setIsEditMode(false);
-
+    if (!customerName || !customerRegion) {
+      openSnackbar(
+        "Either customer name or region was empty. Operation was cancelled.",
+        "danger"
+      );
+      return;
+    }
     try {
       await updateDoc(doc(db, "customers", customerId), {
         name: customerName,
@@ -52,6 +58,13 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
 
   const createCustomer = async () => {
     onClose();
+    if (!customerName || !customerRegion) {
+      openSnackbar(
+        "Either customer name or region was empty. Operation was cancelled.",
+        "danger"
+      );
+      return;
+    }
     try {
       const cusDocRef = await addDoc(collection(db, "customers"), {
         name: customerName,

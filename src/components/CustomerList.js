@@ -45,7 +45,7 @@ export const CustomerList = ({ customers, regions }) => {
           className="px-3 py-1 rounded-md bg-green-700 text-white font-bold"
           onClick={() => {
             setCustomerDetails({
-              name: "New Customer",
+              name: "",
               region: regions[0].id,
               address: {},
               phone: {},
