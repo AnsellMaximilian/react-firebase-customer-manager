@@ -71,6 +71,7 @@ export const CustomerList = ({ customers, regions }) => {
           </label>
           <input
             id="searchFilter"
+            type="search"
             className="w-full rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
