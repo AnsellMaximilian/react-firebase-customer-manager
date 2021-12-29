@@ -20,6 +20,7 @@ export const HomePage = () => {
     let isMounted = true;
 
     const getCustomers = async () => {
+      console.log("getting customers...");
       const [
         customersSnapshot,
         regionsSnapshot,
