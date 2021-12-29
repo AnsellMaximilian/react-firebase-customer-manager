@@ -1,5 +1,5 @@
 import "./App.css";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -8,7 +8,6 @@ import { LoginPage } from "./pages/LoginPage";
 import { HomePage } from "./pages/HomePage";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { GuestRoute } from "./components/GuestRoute";
-import { SnackbarContext } from "./contexts/SnackbarContext";
 
 function App() {
   const [user, setUser] = useState(null);
