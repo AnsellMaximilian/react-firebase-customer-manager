@@ -8,6 +8,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { HomePage } from "./pages/HomePage";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { GuestRoute } from "./components/GuestRoute";
+import { RegionsPage } from "./pages/RegionsPage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,6 +35,15 @@ function App() {
             element={
               <PrivateRoute isAuthenticated={user}>
                 <HomePage />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/regions"
+            element={
+              <PrivateRoute isAuthenticated={user}>
+                <RegionsPage />
               </PrivateRoute>
             }
           />
