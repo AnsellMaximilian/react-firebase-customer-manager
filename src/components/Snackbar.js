@@ -25,17 +25,20 @@ export const Snackbar = ({ children }) => {
   };
 
   const closeSnackbar = () => {
+    clearTimeout(timeoutId);
     setIsOpen(false);
   };
 
-  const statusClasses = isOpen ? "opacity-1" : "opacity-0 translate-y-20";
+  const statusClasses = isOpen
+    ? "opacity-1"
+    : "opacity-0 translate-y-24 md:translate-y-20";
 
   return (
     <SnackbarContext.Provider value={{ openSnackbar, closeSnackbar }}>
       {children}
       <div
         style={{ zIndex: 1000 }}
-        className={`fixed bottom-4 left-4 p-4 min-w-[350px] rounded-md flex justify-between shadow-md transition-all ${classes[status]} ${statusClasses}`}
+        className={`fixed inset-x-4 md:right-auto md:top-auto bottom-4 md:left-4 p-4 min-w-[350px] rounded-md flex justify-between shadow-md transition-all ${classes[status]} ${statusClasses}`}
       >
         <div className="font-bold">{text}</div>
         <button className="" onClick={closeSnackbar}>
