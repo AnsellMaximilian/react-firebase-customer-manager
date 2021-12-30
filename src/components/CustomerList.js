@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { CustomerDetails } from "./CustomerDetails";
 import { FaFilePdf } from "react-icons/fa";
+import { getPrimaryProperty } from "../utils/getPrimaryProperty";
 
 export const CustomerList = ({ customers, regions, getCustomers }) => {
   const [globalFilter, setGlobalFilter] = useState("");
