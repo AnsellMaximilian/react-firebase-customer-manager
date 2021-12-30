@@ -2,8 +2,10 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+const development = true;
+
 // Real config
-const firebaseConfig = {
+const realFirebaseConfig = {
   apiKey: "AIzaSyDLQrqD-Ey7mfi9E2JjpwsvwU0q9TzyQIo",
   authDomain: "rumah-sehat-7966f.firebaseapp.com",
   projectId: "rumah-sehat-7966f",
@@ -13,14 +15,16 @@ const firebaseConfig = {
 };
 
 // Config for testing, just incase quota is exceeded
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAs8unW7pvnJV_ORBxt_D8Kz3rxoLpIaaU",
-//   authDomain: "cuscation.firebaseapp.com",
-//   projectId: "cuscation",
-//   storageBucket: "cuscation.appspot.com",
-//   messagingSenderId: "324514210461",
-//   appId: "1:324514210461:web:1c0804ed4b115f3c5aaa74",
-// };
+const testFirebaseConfig = {
+  apiKey: "AIzaSyAs8unW7pvnJV_ORBxt_D8Kz3rxoLpIaaU",
+  authDomain: "cuscation.firebaseapp.com",
+  projectId: "cuscation",
+  storageBucket: "cuscation.appspot.com",
+  messagingSenderId: "324514210461",
+  appId: "1:324514210461:web:1c0804ed4b115f3c5aaa74",
+};
+
+const firebaseConfig = development ? testFirebaseConfig : realFirebaseConfig;
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
