@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-const development = true;
+const development = false;
 
 // Real config
 const realFirebaseConfig = {
