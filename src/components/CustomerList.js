@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { CustomerDetails } from "./CustomerDetails";
 import { FaFilePdf } from "react-icons/fa";
 import { getPrimaryProperty } from "../utils/getPrimaryProperty";
+import clearProperties from "../utils/clearProperties";
 
 export const CustomerList = ({ customers, regions, getCustomers }) => {
   const [globalFilter, setGlobalFilter] = useState("");
@@ -119,9 +120,17 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
                     }`}
                   >
                     <div className="col-span-3">{customer.name}</div>
-                    <div className="col-span-3">{customer.phone.mobile}</div>
+                    <div className="col-span-3">
+                      {getPrimaryProperty(
+                        clearProperties(customer.phone, ["id"]),
+                        "mobile"
+                      )}
+                    </div>
                     <div className="col-span-6 text-left">
-                      {customer.address.main}
+                      {getPrimaryProperty(
+                        clearProperties(customer.address, "id"),
+                        "main"
+                      )}
                     </div>
                   </div>
                 ))}
