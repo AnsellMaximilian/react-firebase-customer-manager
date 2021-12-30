@@ -27,12 +27,12 @@ export const LoginPage = () => {
     })();
   };
   return (
-    <div>
+    <div className="mx-auto px-4 container">
       <div>
         <img src={logo} alt="logo" className="w-64 mx-auto my-8" />
       </div>
       <form
-        className="w-96 mx-auto rounded-md border border-gray-300 shadow-md p-8"
+        className="max-w-full w-96 mx-auto rounded-md border border-gray-300 shadow-md p-8"
         onSubmit={handleLogin}
       >
         <h1 className="font-bold text-2xl mb-4">Login</h1>
