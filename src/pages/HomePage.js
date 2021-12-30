@@ -18,7 +18,7 @@ export const HomePage = () => {
   const snackbarContextRef = useRef(useContext(SnackbarContext));
 
   const getCustomers = useCallback(async () => {
-    console.log("getting customers...");
+    // console.log("Getting customers...");
 
     try {
       const customerQuery = query(collection(db, "customers"));
@@ -73,7 +73,7 @@ export const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log("hopefully only first mounting");
+    // console.log("Hopefully only happens on first mounting.");
 
     getCustomers();
 
