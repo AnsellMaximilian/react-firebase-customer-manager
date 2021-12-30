@@ -34,16 +34,16 @@ export const CreateRegionForm = ({ onClose }) => {
         </button>
       </div>
       <h2 className="text-2xl font-bold mb-4">Create New Region</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex gap-4 flex-wrap">
         <input
           value={regionName}
           onChange={(e) => setRegionName(e.target.value)}
           placeholder="Region Name"
-          className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+          className="w-full md:w-auto rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
         />
         <button
           type="submit"
-          className="ml-2 px-3 py-1 rounded-md bg-green-700 text-white font-bold"
+          className="w-full md:w-auto px-3 py-1 rounded-md bg-green-700 text-white font-bold"
         >
           Create
         </button>
