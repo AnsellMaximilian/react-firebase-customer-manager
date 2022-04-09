@@ -165,6 +165,8 @@ export const CustomerDetails = ({
             </div>
           </div>
           <div>
+            <h3 className="text-lg font-bold">Address</h3>
+
             <textarea
               value={address}
               placeholder="Customer Address"
@@ -174,6 +176,8 @@ export const CustomerDetails = ({
           </div>
 
           <div>
+            <h3 className="text-lg font-bold">Phone</h3>
+
             <input
               placeholder="Customer Phone"
               value={phoneNumber}
