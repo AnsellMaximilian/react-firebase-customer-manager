@@ -120,17 +120,9 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
                     }`}
                   >
                     <div className="col-span-3">{customer.name}</div>
-                    <div className="col-span-3">
-                      {getPrimaryProperty(
-                        clearProperties(customer.phone, ["id"]),
-                        "mobile"
-                      )}
-                    </div>
+                    <div className="col-span-3">{customer.phoneNumber}</div>
                     <div className="col-span-6 text-left">
-                      {getPrimaryProperty(
-                        clearProperties(customer.address, "id"),
-                        "main"
-                      )}
+                      {customer.address}
                     </div>
                   </div>
                 ))}

@@ -18,54 +18,22 @@ export const HomePage = () => {
   const snackbarContextRef = useRef(useContext(SnackbarContext));
 
   const getCustomers = useCallback(async () => {
-    // console.log("Getting customers...");
-
     try {
       const customerQuery = query(collection(db, "customers"));
 
-      const [
-        customersSnapshot,
-        regionsSnapshot,
-        addressesSnapshot,
-        phoneNumbersSnapshot,
-      ] = await Promise.all([
-        getDocs(customerQuery),
-        getDocs(collection(db, "regions")),
-        getDocs(collection(db, "addresses")),
-        getDocs(collection(db, "phoneNumbers")),
-      ]);
-      const regions = regionsSnapshot.docs.map((region) => ({
-        id: region.id,
-        ...region.data(),
+      const customers = (await getDocs(customerQuery)).docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
       }));
 
-      const addresses = addressesSnapshot.docs.map((address) => ({
-        id: address.id,
-        ...address.data(),
-      }));
+      const regions = (await getDocs(collection(db, "regions"))).docs.map(
+        (doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })
+      );
 
-      const phoneNumbers = phoneNumbersSnapshot.docs.map((phoneNumber) => ({
-        id: phoneNumber.id,
-        ...phoneNumber.data(),
-      }));
-
-      const customerArray = [];
-      for (const customerDoc of customersSnapshot.docs) {
-        const address = addresses.find(
-          (address) => address.id === customerDoc.id
-        );
-        const phoneNumber = phoneNumbers.find(
-          (phoneNumber) => phoneNumber.id === customerDoc.id
-        );
-        const customer = {
-          id: customerDoc.id,
-          ...customerDoc.data(),
-          address: address ? address : {},
-          phone: phoneNumber ? phoneNumber : {},
-        };
-        customerArray.push(customer);
-      }
-      setCustomers(customerArray);
+      setCustomers(customers);
       setRegions(regions);
     } catch (error) {
       snackbarContextRef.current.openSnackbar(error.message, "danger");
@@ -73,8 +41,6 @@ export const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    // console.log("Hopefully only happens on first mounting.");
-
     getCustomers();
 
     return () => {};
