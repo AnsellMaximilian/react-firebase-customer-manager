@@ -17,10 +17,8 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
       return customers.filter((customer) => {
         return (
           customer.name.toLowerCase().includes(globalFilter.toLowerCase()) ||
-          customer.address.main
-            .toLowerCase()
-            .includes(globalFilter.toLowerCase()) ||
-          customer.phone.mobile
+          customer.address.toLowerCase().includes(globalFilter.toLowerCase()) ||
+          customer.phoneNumber
             .toLowerCase()
             .includes(globalFilter.toLowerCase())
         );
