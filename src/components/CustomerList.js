@@ -45,8 +45,8 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
             setCustomerDetails({
               name: "",
               region: regions[0].id,
-              address: {},
-              phone: {},
+              address: "",
+              phoneNumber: "",
             });
           }}
         >
