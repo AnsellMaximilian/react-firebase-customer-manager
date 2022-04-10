@@ -107,7 +107,7 @@ export const CustomerDetails = ({
     customerRegion &&
     regions.length > 0 ? (
     <div>
-      <div className="flex justify-between mb-4 p-4 border-b border-gray-200">
+      <div className="flex justify-between p-4 border-b border-gray-200">
         <h2 className="font-bold text-2xl">
           {isNew
             ? "Create Customer"
@@ -121,7 +121,7 @@ export const CustomerDetails = ({
         </button>
       </div>
       {!isNew && (
-        <div className="text-right">
+        <div className="text-right px-4 py-2 border-b border-gray-200">
           {!isEditMode && (
             <button
               className="btn-danger"
@@ -139,8 +139,9 @@ export const CustomerDetails = ({
         </div>
       )}
       {isEditMode ? (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 p-4">
           <div>
+            <h3 className="text-lg font-semibold">Name</h3>
             <input
               placeholder="Customer Name"
               value={customerName}
@@ -149,7 +150,7 @@ export const CustomerDetails = ({
             />
           </div>
           <div className="">
-            <h3 className="text-lg font-bold">Region</h3>
+            <h3 className="text-lg font-semibold">Region</h3>
             <div>
               <select
                 className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
@@ -165,8 +166,7 @@ export const CustomerDetails = ({
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-bold">Address</h3>
-
+            <h3 className="text-lg font-semibold">Address</h3>
             <textarea
               value={address}
               placeholder="Customer Address"
@@ -176,8 +176,7 @@ export const CustomerDetails = ({
           </div>
 
           <div>
-            <h3 className="text-lg font-bold">Phone</h3>
-
+            <h3 className="text-lg font-semibold">Phone</h3>
             <input
               placeholder="Customer Phone"
               value={phoneNumber}
@@ -187,28 +186,29 @@ export const CustomerDetails = ({
           </div>
         </div>
       ) : (
-        <div className="mb-4 flex flex-col gap-4">
-          <h2 className="text-2xl font-bold order-1 md:order-none">
-            {customerName}
-          </h2>
+        <div className="mb-4 flex flex-col gap-4 p-4">
           <div className="">
-            <h3 className="text-lg font-bold">Region</h3>
+            <h3 className="text-lg font-semibold">Name</h3>
+            <div>{customerName}</div>
+          </div>
+          <div className="">
+            <h3 className="text-lg font-semibold">Region</h3>
             <div>
               {regions.find((region) => region.id === customerRegion).name}
             </div>
           </div>
           <div className="">
-            <h3 className="text-lg font-bold">Address</h3>
+            <h3 className="text-lg font-semibold">Address</h3>
             <div>{address}</div>
           </div>
           <div className="">
-            <h3 className="text-lg font-bold">Phone</h3>
+            <h3 className="text-lg font-semibold">Phone</h3>
             <div>{phoneNumber}</div>
           </div>
         </div>
       )}
       {isEditMode && (
-        <div className="text-right">
+        <div className="text-right px-4 py-2 border-t border-gray-200">
           <button
             className="btn-primary"
             onClick={() => {
