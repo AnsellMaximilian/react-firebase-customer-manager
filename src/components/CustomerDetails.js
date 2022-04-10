@@ -3,16 +3,13 @@ import CircleLoader from "react-spinners/CircleLoader";
 import {
   updateDoc,
   doc,
-  setDoc,
   Timestamp,
   collection,
   addDoc,
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
-import clearProperties from "../utils/clearProperties";
 import { SnackbarContext } from "../contexts/SnackbarContext";
-import { CustomerMapValue } from "./CustomerDetails/CustomerMapValue";
 
 export const CustomerDetails = ({
   customer,
@@ -26,8 +23,6 @@ export const CustomerDetails = ({
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [customerName, setCustomerName] = useState("");
   const [customerRegion, setCustomerRegion] = useState(null);
-  const [newAddress, setNewAddress] = useState(null);
-  const [newPhoneNumber, setNewPhoneNumber] = useState(null);
 
   const { openSnackbar } = useContext(SnackbarContext);
 
@@ -66,7 +61,7 @@ export const CustomerDetails = ({
       return;
     }
     try {
-      const cusDocRef = await addDoc(collection(db, "customers"), {
+      await addDoc(collection(db, "customers"), {
         name: customerName,
         region: customerRegion,
         address: address,
