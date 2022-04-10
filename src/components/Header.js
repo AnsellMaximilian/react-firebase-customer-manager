@@ -41,8 +41,8 @@ export const Header = () => {
 
 const PageLink = ({ to, children }) => {
   const initialClassName =
-    "px-3 py-1 block transition-all border-b-4 font-bold text-gray-500 hover:text-black hover:border-green-700";
-  const activeClassName = "text-black border-green-700";
+    "px-3 py-1 block transition-all border-b-4 font-bold text-gray-500 hover:text-black hover:border-primary";
+  const activeClassName = "text-black border-primary";
   const inactiveClassName = "border-white";
   return (
     <NavLink

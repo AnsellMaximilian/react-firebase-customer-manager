@@ -45,7 +45,7 @@ export const LoginPage = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="rounded-md w-full border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+            className="rounded-md w-full border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
           />
         </div>
         <div className="mb-4">
@@ -57,10 +57,10 @@ export const LoginPage = () => {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="rounded-md w-full border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+            className="rounded-md w-full border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
           />
         </div>
-        <button className="px-3 py-1 rounded-md bg-green-700 text-white font-bold">
+        <button className="px-3 py-1 rounded-md bg-primary text-white font-bold">
           Login
         </button>
       </form>

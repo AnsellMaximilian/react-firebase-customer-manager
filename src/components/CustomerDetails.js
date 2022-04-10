@@ -131,7 +131,7 @@ export const CustomerDetails = ({
             </button>
           )}
           <button
-            className="text-green-600 ml-2 hover:text-green-700"
+            className="text-green-600 ml-2 hover:text-primary"
             onClick={() => setIsEditMode(!isEditMode)}
           >
             {isEditMode ? "Cancel Edit" : "Edit"}
@@ -145,14 +145,14 @@ export const CustomerDetails = ({
               placeholder="Customer Name"
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
-              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
             />
           </div>
           <div className="">
             <h3 className="text-lg font-bold">Region</h3>
             <div>
               <select
-                className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+                className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
                 value={customerRegion}
                 onChange={(e) => setCustomerRegion(e.target.value)}
               >
@@ -170,7 +170,7 @@ export const CustomerDetails = ({
             <textarea
               value={address}
               placeholder="Customer Address"
-              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
               onChange={(e) => setAddress(e.target.value)}
             ></textarea>
           </div>
@@ -182,7 +182,7 @@ export const CustomerDetails = ({
               placeholder="Customer Phone"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
             />
           </div>
         </div>
@@ -210,7 +210,7 @@ export const CustomerDetails = ({
       {isEditMode && (
         <div className="text-right">
           <button
-            className="px-3 py-1 rounded-md bg-green-700 text-white font-bold"
+            className="px-3 py-1 rounded-md bg-primary text-white font-bold"
             onClick={() => {
               if (isNew) {
                 createCustomer();

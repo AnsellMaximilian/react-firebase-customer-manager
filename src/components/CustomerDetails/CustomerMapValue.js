@@ -39,7 +39,7 @@ export const CustomerMapValue = ({
                         }))
                       }
                       value={map[type]}
-                      className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+                      className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
                     />
                     <button
                       className="text-white bg-red-600 py-1 px-3 rounded-md"
@@ -92,7 +92,7 @@ export const CustomerMapValue = ({
                 }))
               }
               placeholder="Type"
-              className="col-span-6 rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+              className="col-span-6 rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
             />
             <input
               value={newMapValue.value}
@@ -103,10 +103,10 @@ export const CustomerMapValue = ({
                 }))
               }
               placeholder="Number"
-              className="col-span-6 rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-green-700 outline-none"
+              className="col-span-6 rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
             />
 
-            <button className="col-span-12 px-3 py-1 rounded-md bg-green-700 text-white font-bold">
+            <button className="col-span-12 px-3 py-1 rounded-md bg-primary text-white font-bold">
               Add
             </button>
           </form>
