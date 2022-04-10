@@ -129,7 +129,10 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
       <Modal
         isOpen={!!customerDetails}
         onRequestClose={() => setCustomerDetails(null)}
-        style={{ content: { padding: 0 } }}
+        style={{
+          overlay: { backgroundColor: "rgba(0, 0, 0, 0.6)" },
+          content: { padding: 0 },
+        }}
       >
         <CustomerDetails
           customer={customerDetails}
