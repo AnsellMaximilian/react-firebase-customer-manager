@@ -145,14 +145,14 @@ export const CustomerDetails = ({
               placeholder="Customer Name"
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
-              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
+              className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
             />
           </div>
           <div className="">
             <h3 className="text-lg font-bold">Region</h3>
             <div>
               <select
-                className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
+                className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
                 value={customerRegion}
                 onChange={(e) => setCustomerRegion(e.target.value)}
               >
@@ -170,7 +170,7 @@ export const CustomerDetails = ({
             <textarea
               value={address}
               placeholder="Customer Address"
-              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
+              className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
               onChange={(e) => setAddress(e.target.value)}
             ></textarea>
           </div>
@@ -182,7 +182,7 @@ export const CustomerDetails = ({
               placeholder="Customer Phone"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              className="rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
+              className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
             />
           </div>
         </div>

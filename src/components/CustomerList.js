@@ -70,7 +70,7 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
           <input
             id="searchFilter"
             type="search"
-            className="w-full rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
+            className="w-full rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
             placeholder="Search..."
@@ -85,7 +85,7 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
           </label>
           <select
             id="regionFilter"
-            className="w-full rounded-md border-gray-300 border p-1 focus:shadow-[0_0_0_1px_rgb(21,_128,_61)] shadow-primary outline-none"
+            className="w-full rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
             value={regionFilter}
             onChange={(e) => setRegionFilter(e.target.value)}
           >
