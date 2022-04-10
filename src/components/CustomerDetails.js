@@ -124,14 +124,14 @@ export const CustomerDetails = ({
         <div className="text-right">
           {!isEditMode && (
             <button
-              className="text-red-600 hover:text-red-700"
+              className="btn-danger"
               onClick={() => deleteCustomer(customer.id)}
             >
               Delete
             </button>
           )}
           <button
-            className="text-green-600 ml-2 hover:text-primary"
+            className="ml-1 btn-primary"
             onClick={() => setIsEditMode(!isEditMode)}
           >
             {isEditMode ? "Cancel Edit" : "Edit"}
