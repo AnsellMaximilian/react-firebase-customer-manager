@@ -210,7 +210,7 @@ export const CustomerDetails = ({
       {isEditMode && (
         <div className="text-right">
           <button
-            className="px-3 py-1 rounded-md bg-primary text-white font-bold"
+            className="btn-primary"
             onClick={() => {
               if (isNew) {
                 createCustomer();

@@ -41,10 +41,7 @@ export const CreateRegionForm = ({ onClose }) => {
           placeholder="Region Name"
           className="w-full md:w-auto rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
         />
-        <button
-          type="submit"
-          className="w-full md:w-auto px-3 py-1 rounded-md bg-primary text-white font-bold"
-        >
+        <button type="submit" className="w-full md:w-auto btn-primary">
           Create
         </button>
       </form>

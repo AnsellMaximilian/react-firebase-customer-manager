@@ -106,9 +106,7 @@ export const CustomerMapValue = ({
               className="col-span-6 rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
             />
 
-            <button className="col-span-12 px-3 py-1 rounded-md bg-primary text-white font-bold">
-              Add
-            </button>
+            <button className="col-span-12 btn-primary">Add</button>
           </form>
         ) : (
           <button

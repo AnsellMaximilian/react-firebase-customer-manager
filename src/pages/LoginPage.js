@@ -60,9 +60,7 @@ export const LoginPage = () => {
             className="rounded-md w-full border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
           />
         </div>
-        <button className="px-3 py-1 rounded-md bg-primary text-white font-bold">
-          Login
-        </button>
+        <button className="btn-primary">Login</button>
       </form>
     </div>
   );

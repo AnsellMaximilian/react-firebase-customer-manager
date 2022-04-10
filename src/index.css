@@ -34,3 +34,11 @@ code {
     width: 100%;
   }
 }
+
+/* CUSTOM TAILWIND CLASSES */
+
+@layer components {
+  .btn-primary {
+    @apply px-3 py-1 rounded-md bg-primary text-white font-bold hover:opacity-90;
+  }
+}
