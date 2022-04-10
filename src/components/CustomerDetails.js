@@ -107,7 +107,12 @@ export const CustomerDetails = ({
     customerRegion &&
     regions.length > 0 ? (
     <div>
-      <div className="text-right mb-4">
+      <div className="flex justify-between mb-4 p-4 border-b border-gray-200">
+        <h2 className="font-bold text-2xl">
+          {isNew
+            ? "Create Customer"
+            : `${isEditMode ? "Editing " : ""} ${customerName}`}
+        </h2>
         <button
           className="ml-2 hover:text-black text-gray-600"
           onClick={onClose}

@@ -129,6 +129,7 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
       <Modal
         isOpen={!!customerDetails}
         onRequestClose={() => setCustomerDetails(null)}
+        style={{ content: { padding: 0 } }}
       >
         <CustomerDetails
           customer={customerDetails}
