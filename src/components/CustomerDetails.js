@@ -131,7 +131,7 @@ export const CustomerDetails = ({
             </button>
           )}
           <button
-            className="ml-1 btn-primary"
+            className={`ml-1 ${isEditMode ? "btn-secondary" : "btn-primary"}`}
             onClick={() => setIsEditMode(!isEditMode)}
           >
             {isEditMode ? "Cancel Edit" : "Edit"}
