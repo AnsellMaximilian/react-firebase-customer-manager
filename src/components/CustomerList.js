@@ -53,7 +53,7 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
           Add New
         </button>
         <button
-          className="px-3 py-1 rounded-md bg-red-600 text-white font-bold"
+          className="btn bg-red-600 text-white font-bold"
           onClick={() => window.print()}
         >
           <FaFilePdf className="" />

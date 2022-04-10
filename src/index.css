@@ -39,10 +39,10 @@ code {
 
 @layer components {
   .btn {
-    @apply px-3 py-1 rounded-sm;
+    @apply px-3 py-1 rounded-sm hover:opacity-90;
   }
   .btn-primary {
-    @apply btn bg-primary text-white font-semibold uppercase hover:opacity-90;
+    @apply btn bg-primary text-white font-semibold uppercase;
   }
 
   .btn-secondary {
@@ -50,6 +50,6 @@ code {
   }
 
   .btn-danger {
-    @apply btn bg-red-600 text-white font-semibold uppercase hover:opacity-90;
+    @apply btn bg-red-600 text-white font-semibold uppercase;
   }
 }
