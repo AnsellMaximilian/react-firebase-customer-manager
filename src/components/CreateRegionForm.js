@@ -25,7 +25,8 @@ export const CreateRegionForm = ({ onClose }) => {
   };
   return (
     <div>
-      <div className="text-right mb-4">
+      <div className="flex justify-between p-4 border-b border-gray-200">
+        <h2 className="text-2xl font-bold">Create New Region</h2>
         <button
           className="ml-2 hover:text-black text-gray-600"
           onClick={onClose}
@@ -33,13 +34,15 @@ export const CreateRegionForm = ({ onClose }) => {
           Close
         </button>
       </div>
-      <h2 className="text-2xl font-bold mb-4">Create New Region</h2>
-      <form onSubmit={handleSubmit} className="flex gap-4 flex-wrap">
+      <form
+        onSubmit={handleSubmit}
+        className="flex gap-4 flex-wrap p-4 justify-center"
+      >
         <input
           value={regionName}
           onChange={(e) => setRegionName(e.target.value)}
           placeholder="Region Name"
-          className="w-full md:w-auto rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+          className="grow w-full md:w-auto rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
         />
         <button type="submit" className="w-full md:w-auto btn-primary">
           Create

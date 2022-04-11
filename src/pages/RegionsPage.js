@@ -111,7 +111,14 @@ export const RegionsPage = () => {
           </div>
         )}
       </div>
-      <Modal isOpen={isNewRegionModalOpen} onRequestClose={closeNewRegionModal}>
+      <Modal
+        isOpen={isNewRegionModalOpen}
+        onRequestClose={closeNewRegionModal}
+        className="p-0 inset-10 overflow-auto rounded-[4px] absolute max-w-md m-auto h-64 bg-white"
+        style={{
+          overlay: { backgroundColor: "rgba(0, 0, 0, 0.6)" },
+        }}
+      >
         <CreateRegionForm onClose={closeNewRegionModal} />
       </Modal>
     </div>
