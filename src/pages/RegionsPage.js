@@ -72,14 +72,14 @@ export const RegionsPage = () => {
       <Header />
       <div className="px-4 mt-4 container mx-auto">
         {regions.length > 0 ? (
-          <div>
+          <div className="mb-4">
             <h1 className="mt-4 text-2xl font-bold">Regions List</h1>
 
             <div className="mt-4 grid grid-cols-12 shadow-md">
               {regions.map((region) => {
                 return (
                   <div
-                    className="hover:relative group col-span-6 md:col-span-3 p-10 border cursor-pointer bg-white hover:scale-125 transition-all hover:bg-primary hover:text-white"
+                    className="hover:relative group col-span-6 md:col-span-3 p-10 border cursor-pointer bg-white transition-all hover:bg-primary hover:text-white"
                     key={region.id}
                   >
                     <button
@@ -93,7 +93,7 @@ export const RegionsPage = () => {
                 );
               })}
               <div
-                className="flex col-span-6 md:col-span-3 p-8 border cursor-pointer bg-white hover:scale-125 transition-all hover:bg-primary hover:text-white"
+                className="flex col-span-6 md:col-span-3 p-8 border cursor-pointer bg-white transition-all hover:bg-primary hover:text-white"
                 key="new-region"
                 title="Add new region"
                 onClick={() => setIsNewRegionModalOpen(true)}
