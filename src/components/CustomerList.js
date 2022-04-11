@@ -108,32 +108,39 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
         </div>
       </div>
       <div className="rounded-md shadow-md print-container">
-        {filteredRegions.map((region) => (
-          <div key={region.id}>
-            <div className="bg-primary text-white p-2 font-bold">
-              {region.name}
-            </div>
-            <div>
-              {filteredCustomers
-                .filter((customer) => customer.region === region.id)
-                .map((customer, index) => (
-                  <div
-                    onClick={() => openDetailsModal(customer)}
-                    key={customer.id}
-                    className={`hover:bg-green-200 cursor-pointer p-2 grid grid-cols-12 ${
-                      index % 2 === 0 ? "bg-green-100" : "bg-green-50"
-                    }`}
-                  >
-                    <div className="col-span-3">{customer.name}</div>
-                    <div className="col-span-3">{customer.phoneNumber}</div>
-                    <div className="col-span-6 text-left">
-                      {customer.address}
+        {filteredRegions
+          .filter(
+            (region) =>
+              filteredCustomers.filter(
+                (customer) => customer.region === region.id
+              ).length > 0
+          )
+          .map((region) => (
+            <div key={region.id}>
+              <div className="bg-primary text-white p-2 font-bold">
+                {region.name}
+              </div>
+              <div>
+                {filteredCustomers
+                  .filter((customer) => customer.region === region.id)
+                  .map((customer, index) => (
+                    <div
+                      onClick={() => openDetailsModal(customer)}
+                      key={customer.id}
+                      className={`hover:bg-green-200 cursor-pointer p-2 grid grid-cols-12 ${
+                        index % 2 === 0 ? "bg-green-100" : "bg-green-50"
+                      }`}
+                    >
+                      <div className="col-span-3">{customer.name}</div>
+                      <div className="col-span-3">{customer.phoneNumber}</div>
+                      <div className="col-span-6 text-left">
+                        {customer.address}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <Modal
         isOpen={!!customerDetails}
