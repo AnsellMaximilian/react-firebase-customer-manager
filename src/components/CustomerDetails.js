@@ -219,7 +219,7 @@ export const CustomerDetails = ({
               }
             }}
           >
-            Save Changes
+            {isNew ? "Create" : "Save Changes"}
           </button>
         </div>
       )}
