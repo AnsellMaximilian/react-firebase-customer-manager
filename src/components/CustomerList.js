@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { CustomerDetails } from "./CustomerDetails";
 import { FaFilePdf } from "react-icons/fa";
@@ -7,33 +7,42 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [regionFilter, setRegionFilter] = useState("all");
   const [customerDetails, setCustomerDetails] = useState(null);
+  const [filteredCustomers, setFilteredCustomers] = useState([]);
+  const [filteredRegions, setFilteredRegions] = useState([]);
 
   const openDetailsModal = (customer) => {
     setCustomerDetails(customer);
   };
 
-  const filteredCustomers = (customers) => {
-    if (globalFilter) {
-      return customers.filter((customer) => {
-        return (
-          customer.name.toLowerCase().includes(globalFilter.toLowerCase()) ||
-          customer.address.toLowerCase().includes(globalFilter.toLowerCase()) ||
-          customer.phoneNumber
-            .toLowerCase()
-            .includes(globalFilter.toLowerCase())
-        );
-      });
-    }
-    return customers;
-  };
-
-  const filteredRegions = (regions) => {
+  useEffect(() => {
     if (regionFilter !== "all") {
-      return regions.filter((region) => region.id === regionFilter);
+      setFilteredRegions(
+        regions.filter((region) => region.id === regionFilter)
+      );
+    } else {
+      setFilteredRegions(regions);
     }
+  }, [regionFilter, regions]);
 
-    return regions;
-  };
+  useEffect(() => {
+    if (globalFilter) {
+      setFilteredCustomers(
+        customers.filter((customer) => {
+          return (
+            customer.name.toLowerCase().includes(globalFilter.toLowerCase()) ||
+            customer.address
+              .toLowerCase()
+              .includes(globalFilter.toLowerCase()) ||
+            customer.phoneNumber
+              .toLowerCase()
+              .includes(globalFilter.toLowerCase())
+          );
+        })
+      );
+    } else {
+      setFilteredCustomers(customers);
+    }
+  }, [globalFilter, customers]);
 
   return (
     <div>
@@ -99,13 +108,13 @@ export const CustomerList = ({ customers, regions, getCustomers }) => {
         </div>
       </div>
       <div className="rounded-md shadow-md print-container">
-        {filteredRegions(regions).map((region) => (
+        {filteredRegions.map((region) => (
           <div key={region.id}>
             <div className="bg-primary text-white p-2 font-bold">
               {region.name}
             </div>
             <div>
-              {filteredCustomers(customers)
+              {filteredCustomers
                 .filter((customer) => customer.region === region.id)
                 .map((customer, index) => (
                   <div
