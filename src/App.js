@@ -1,4 +1,6 @@
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
@@ -9,6 +11,7 @@ import { HomePage } from "./pages/HomePage";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { GuestRoute } from "./components/GuestRoute";
 import { RegionsPage } from "./pages/RegionsPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -50,6 +53,11 @@ function App() {
           <Route path="/" element={<Navigate to="/customers" />} />
         </Routes>
       </main>
+      <ToastContainer
+        position="bottom-left"
+        theme="colored"
+        pauseOnHover={false}
+      />
     </div>
   );
 }

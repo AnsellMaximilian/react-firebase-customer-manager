@@ -1,14 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import logo from "../assets/images/logo.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
-import { SnackbarContext } from "./../contexts/SnackbarContext";
+import { toast } from "react-toastify";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-
-  const { openSnackbar } = useContext(SnackbarContext);
 
   const [email, setEmail] = useState("");
 
@@ -20,9 +18,9 @@ export const LoginPage = () => {
       try {
         const user = await signInWithEmailAndPassword(auth, email, password);
         navigate("/");
-        openSnackbar(`Signed in as ${user.user.email}`, "success");
+        toast.success(`Signed in as ${user.user.email}`);
       } catch (error) {
-        openSnackbar("Something happened. Failed to login.", "danger");
+        toast.error("Something happened. Failed to login.");
       }
     })();
   };

@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import logo from "../assets/images/logo.svg";
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
-import { SnackbarContext } from "../contexts/SnackbarContext";
 import { Link, NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Header = () => {
-  const { openSnackbar } = useContext(SnackbarContext);
-
   const handleSignOut = () => {
     signOut(auth);
-    openSnackbar("Logged out successfully.", "success");
+    toast.success("Logged out successfully.");
   };
 
   return (

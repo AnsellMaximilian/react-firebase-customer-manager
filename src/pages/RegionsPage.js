@@ -7,20 +7,19 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import PulseLoader from "react-spinners/PulseLoader";
 import { Header } from "../components/Header";
 import { db } from "../config/firebase";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { CreateRegionForm } from "../components/CreateRegionForm";
-import { SnackbarContext } from "../contexts/SnackbarContext";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 export const RegionsPage = () => {
   const [regions, setRegions] = useState([]);
   const [isNewRegionModalOpen, setIsNewRegionModalOpen] = useState(false);
-  const snackbarContext = useRef(useContext(SnackbarContext));
 
   const closeNewRegionModal = () => setIsNewRegionModalOpen(false);
 
@@ -41,21 +40,16 @@ export const RegionsPage = () => {
       );
       const regionCustomersCount = regionCustomers.docs.length;
       if (regionCustomersCount > 0) {
-        snackbarContext.current.openSnackbar(
-          `Cannot delete. There are ${regionCustomersCount} customers in this region.`,
-          "danger"
+        toast.error(
+          `Cannot delete. There are ${regionCustomersCount} customers in this region.`
         );
       } else {
         try {
           await deleteDoc(doc(db, "regions", region.id));
-          snackbarContext.current.openSnackbar(
-            `Successfully deleted region "${region.name}"`,
-            "success"
-          );
+          toast.success(`Successfully deleted region "${region.name}"`);
         } catch (error) {
-          snackbarContext.current.openSnackbar(
-            `Something happened. Cannot delete region "${region.name}"`,
-            "danger"
+          toast.error(
+            `Something happened. Cannot delete region "${region.name}"`
           );
         }
       }
@@ -75,7 +69,7 @@ export const RegionsPage = () => {
         setRegions(regionDocs);
       },
       (err) => {
-        snackbarContext.current.openSnackbar(err.message, "danger");
+        toast.error(err.message);
       }
     );
     return () => unsub();

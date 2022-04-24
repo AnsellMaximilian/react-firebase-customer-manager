@@ -1,26 +1,25 @@
 import { addDoc, collection } from "firebase/firestore";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { db } from "../config/firebase";
-import { SnackbarContext } from "../contexts/SnackbarContext";
 
 export const CreateRegionForm = ({ onClose }) => {
   const [regionName, setRegionName] = useState("");
-  const { openSnackbar } = useContext(SnackbarContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     onClose();
     if (!regionName) {
-      openSnackbar("Region name cannot be empty. Failed to create.", "danger");
+      toast.error("Region name cannot be empty. Failed to create.");
       return;
     }
     try {
       await addDoc(collection(db, "regions"), {
         name: regionName,
       });
-      openSnackbar(`Created region "${regionName}"`, "success");
+      toast.success(`Created region "${regionName}"`);
     } catch (error) {
-      openSnackbar("Something happened. Failed to create.", "danger");
+      toast.error("Something happened. Failed to create.", "danger");
     }
   };
   return (

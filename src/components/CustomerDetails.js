@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import CircleLoader from "react-spinners/CircleLoader";
 import {
   updateDoc,
@@ -9,8 +9,8 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { SnackbarContext } from "../contexts/SnackbarContext";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [isEditMode, setIsEditMode] = useState(isNew || false);
@@ -19,14 +19,11 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [customerName, setCustomerName] = useState("");
   const [customerRegion, setCustomerRegion] = useState(null);
 
-  const { openSnackbar } = useContext(SnackbarContext);
-
   const updateCustomer = async (customerId) => {
     setIsEditMode(false);
     if (!customerName || !customerRegion) {
-      openSnackbar(
-        "Either customer name or region was empty. Operation was cancelled.",
-        "danger"
+      toast.error(
+        "Either customer name or region was empty. Operation was cancelled."
       );
       return;
     }
@@ -38,18 +35,17 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         phoneNumber: phoneNumber,
       });
 
-      openSnackbar(`Updated customer "${customerName}"`, "success");
+      toast.success(`Updated customer "${customerName}"`);
     } catch (error) {
-      openSnackbar("Something happened. Failed to update.", "danger");
+      toast.error("Something happened. Failed to update.");
     }
   };
 
   const createCustomer = async () => {
     onClose();
     if (!customerName || !customerRegion) {
-      openSnackbar(
-        "Either customer name or region was empty. Operation was cancelled.",
-        "danger"
+      toast.error(
+        "Either customer name or region was empty. Operation was cancelled."
       );
       return;
     }
@@ -62,9 +58,9 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         createdAt: Timestamp.now(),
       });
 
-      openSnackbar(`Added customer "${customerName}"`, "success");
+      toast.success(`Added customer "${customerName}"`);
     } catch (error) {
-      openSnackbar("Something happened. Failed to add.", "danger");
+      toast.error("Something happened. Failed to add.");
     }
   };
 
@@ -83,9 +79,9 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
       onClose();
       try {
         await deleteDoc(doc(db, "customers", customerId));
-        openSnackbar(`Deleted customer "${customerName}"`, "success");
+        toast.success(`Deleted customer "${customerName}"`);
       } catch (error) {
-        openSnackbar("Something happened. Failed to delete.", "danger");
+        toast.error("Something happened. Failed to delete.");
       }
     }
   };
