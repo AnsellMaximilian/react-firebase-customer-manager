@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { SnackbarContext } from "../contexts/SnackbarContext";
+import Swal from "sweetalert2";
 
 export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [isEditMode, setIsEditMode] = useState(isNew || false);
@@ -68,12 +69,20 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   };
 
   const deleteCustomer = async (customerId) => {
-    const confirmed = window.confirm("Are you sure?");
-    if (confirmed) {
+    const confirmation = await Swal.fire({
+      title: "Warning!",
+      text: "Are you sure?",
+      icon: "warning",
+      confirmButtonText: "Yes",
+      showCancelButton: true,
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#b51919",
+    });
+
+    if (confirmation.isConfirmed) {
       onClose();
       try {
         await deleteDoc(doc(db, "customers", customerId));
-
         openSnackbar(`Deleted customer "${customerName}"`, "success");
       } catch (error) {
         openSnackbar("Something happened. Failed to delete.", "danger");
