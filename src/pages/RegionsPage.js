@@ -15,6 +15,7 @@ import { db } from "../config/firebase";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { CreateRegionForm } from "../components/CreateRegionForm";
 import { SnackbarContext } from "../contexts/SnackbarContext";
+import Swal from "sweetalert2";
 
 export const RegionsPage = () => {
   const [regions, setRegions] = useState([]);
@@ -24,27 +25,39 @@ export const RegionsPage = () => {
   const closeNewRegionModal = () => setIsNewRegionModalOpen(false);
 
   const deleteRegion = async (region) => {
-    const regionCustomers = await getDocs(
-      query(collection(db, "customers"), where("region", "==", region.id))
-    );
-    const regionCustomersCount = regionCustomers.docs.length;
-    if (regionCustomersCount > 0) {
-      snackbarContext.current.openSnackbar(
-        `Cannot delete. There are ${regionCustomersCount} customers in this region.`,
-        "danger"
+    const confirmation = await Swal.fire({
+      title: "Warning!",
+      text: "Are you sure?",
+      icon: "warning",
+      confirmButtonText: "Yes",
+      showCancelButton: true,
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#b51919",
+    });
+
+    if (confirmation.isConfirmed) {
+      const regionCustomers = await getDocs(
+        query(collection(db, "customers"), where("region", "==", region.id))
       );
-    } else {
-      try {
-        await deleteDoc(doc(db, "regions", region.id));
+      const regionCustomersCount = regionCustomers.docs.length;
+      if (regionCustomersCount > 0) {
         snackbarContext.current.openSnackbar(
-          `Successfully deleted region "${region.name}"`,
-          "success"
-        );
-      } catch (error) {
-        snackbarContext.current.openSnackbar(
-          `Something happened. Cannot delete region "${region.name}"`,
+          `Cannot delete. There are ${regionCustomersCount} customers in this region.`,
           "danger"
         );
+      } else {
+        try {
+          await deleteDoc(doc(db, "regions", region.id));
+          snackbarContext.current.openSnackbar(
+            `Successfully deleted region "${region.name}"`,
+            "success"
+          );
+        } catch (error) {
+          snackbarContext.current.openSnackbar(
+            `Something happened. Cannot delete region "${region.name}"`,
+            "danger"
+          );
+        }
       }
     }
   };
