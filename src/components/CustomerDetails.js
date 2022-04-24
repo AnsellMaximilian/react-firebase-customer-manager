@@ -11,13 +11,7 @@ import {
 import { db } from "../config/firebase";
 import { SnackbarContext } from "../contexts/SnackbarContext";
 
-export const CustomerDetails = ({
-  customer,
-  onClose,
-  isNew,
-  regions,
-  getCustomers,
-}) => {
+export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [isEditMode, setIsEditMode] = useState(isNew || false);
   const [address, setAddress] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
@@ -43,8 +37,6 @@ export const CustomerDetails = ({
         phoneNumber: phoneNumber,
       });
 
-      getCustomers();
-
       openSnackbar(`Updated customer "${customerName}"`, "success");
     } catch (error) {
       openSnackbar("Something happened. Failed to update.", "danger");
@@ -69,8 +61,6 @@ export const CustomerDetails = ({
         createdAt: Timestamp.now(),
       });
 
-      getCustomers();
-
       openSnackbar(`Added customer "${customerName}"`, "success");
     } catch (error) {
       openSnackbar("Something happened. Failed to add.", "danger");
@@ -83,7 +73,6 @@ export const CustomerDetails = ({
       onClose();
       try {
         await deleteDoc(doc(db, "customers", customerId));
-        getCustomers();
 
         openSnackbar(`Deleted customer "${customerName}"`, "success");
       } catch (error) {
