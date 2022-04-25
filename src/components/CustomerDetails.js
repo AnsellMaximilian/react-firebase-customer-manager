@@ -59,6 +59,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         region: customerRegion,
         address: address,
         phoneNumber: phoneNumber,
+        nicknames: nicknames,
         createdAt: Timestamp.now(),
       });
 
