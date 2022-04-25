@@ -19,6 +19,10 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [customerName, setCustomerName] = useState("");
   const [customerRegion, setCustomerRegion] = useState(null);
 
+  // Nicknames
+  const [nickname, setNickname] = useState("");
+  const [nicknames, setNicknames] = useState([]);
+
   const updateCustomer = async (customerId) => {
     setIsEditMode(false);
     if (!customerName || !customerRegion) {
@@ -86,6 +90,16 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
     }
   };
 
+  const addNickname = (e) => {
+    e.preventDefault();
+    if (nickname) {
+      setNicknames((prev) => [...prev, nickname]);
+      setNickname("");
+    } else {
+      toast.error("Cannot be empty");
+    }
+  };
+
   useEffect(() => {
     if (customer) {
       setAddress(customer.address);
@@ -143,6 +157,25 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
               className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
             />
           </div>
+
+          <div>
+            <h3 className="text-lg font-semibold">Nicknames</h3>
+            <form className="flex gap-2" onSubmit={addNickname}>
+              <input
+                placeholder="Customer Name"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+                className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+              />
+              <button className="btn-secondary">Add</button>
+            </form>
+            <div>
+              {nicknames.map((nickname, index) => (
+                <div key={nickname + index}>{nickname}</div>
+              ))}
+            </div>
+          </div>
+
           <div className="">
             <h3 className="text-lg font-semibold">Region</h3>
             <div>
