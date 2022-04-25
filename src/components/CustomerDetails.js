@@ -160,7 +160,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
 
           <div>
             <h3 className="text-lg font-semibold">Nicknames</h3>
-            <form className="flex gap-2" onSubmit={addNickname}>
+            <form className="flex gap-2 mb-2" onSubmit={addNickname}>
               <input
                 placeholder="Customer Name"
                 value={nickname}
@@ -169,9 +169,15 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
               />
               <button className="btn-secondary">Add</button>
             </form>
-            <div>
+            <div className="flex gap-2">
               {nicknames.map((nickname, index) => (
-                <div key={nickname + index}>{nickname}</div>
+                <div
+                  className="flex gap-1 shadow-md rounded-full border border-gray-200 px-2"
+                  key={nickname + index}
+                >
+                  <div>{nickname}</div>
+                  <button>&times;</button>
+                </div>
               ))}
             </div>
           </div>
