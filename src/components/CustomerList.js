@@ -35,7 +35,12 @@ export const CustomerList = ({ customers, regions }) => {
               .includes(globalFilter.toLowerCase()) ||
             customer.phoneNumber
               .toLowerCase()
-              .includes(globalFilter.toLowerCase())
+              .includes(globalFilter.toLowerCase()) ||
+            (customer.nicknames &&
+              customer.nicknames
+                .join("")
+                .toLowerCase()
+                .includes(globalFilter.toLowerCase()))
           );
         })
       );
