@@ -232,16 +232,18 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
             <h3 className="text-lg font-semibold">Name</h3>
             <div>{customerName}</div>
           </div>
-          <div className="">
-            <h3 className="text-lg font-semibold">Nicknames</h3>
-            <div>
-              {nicknames
-                .map((nickname, index) =>
-                  index + 1 === nicknames.length ? nickname : `${nickname},`
-                )
-                .join(" ")}
+          {nicknames.length > 0 && (
+            <div className="">
+              <h3 className="text-lg font-semibold">Nicknames</h3>
+              <div>
+                {nicknames
+                  .map((nickname, index) =>
+                    index + 1 === nicknames.length ? nickname : `${nickname},`
+                  )
+                  .join(" ")}
+              </div>
             </div>
-          </div>
+          )}
           <div className="">
             <h3 className="text-lg font-semibold">Region</h3>
             <div>
