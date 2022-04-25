@@ -100,6 +100,11 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
     }
   };
 
+  const deleteNickname = (index) =>
+    setNicknames((prev) =>
+      prev.filter((name, nickIndex) => nickIndex !== index)
+    );
+
   useEffect(() => {
     if (customer) {
       setAddress(customer.address);
@@ -173,10 +178,10 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
               {nicknames.map((nickname, index) => (
                 <div
                   className="flex gap-1 shadow-md rounded-full border border-gray-200 px-2"
-                  key={nickname + index}
+                  key={index}
                 >
                   <div>{nickname}</div>
-                  <button>&times;</button>
+                  <button onClick={() => deleteNickname(index)}>&times;</button>
                 </div>
               ))}
             </div>
