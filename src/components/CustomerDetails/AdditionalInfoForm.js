@@ -15,6 +15,18 @@ const AdditionalInfoForm = ({ additionalInfo, setAdditionalInfo }) => {
     }
   };
 
+  const deleteInfo = (key) => {
+    setAdditionalInfo((prev) => {
+      const newObj = {};
+      for (const info in prev) {
+        if (key !== info) {
+          newObj[info] = prev[info];
+        }
+      }
+      return newObj;
+    });
+  };
+
   return (
     <div className="p-4 border-t border-gray-200">
       <div className="text-2xl font-bold mb-4">Additional Information</div>
@@ -60,7 +72,10 @@ const AdditionalInfoForm = ({ additionalInfo, setAdditionalInfo }) => {
                 }
                 className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
               />
-              <button className="bg-red-600 text-white rounded-md px-2">
+              <button
+                className="bg-red-600 text-white rounded-md px-2"
+                onClick={() => deleteInfo(key)}
+              >
                 &times;
               </button>
             </div>
