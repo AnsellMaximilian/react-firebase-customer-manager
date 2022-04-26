@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import Details from "./Details";
 import Form from "./Form";
+import AdditionalInfoForm from "./AdditionalInfoForm";
 
 export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [isEditMode, setIsEditMode] = useState(isNew || false);
@@ -24,6 +25,13 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   // Nicknames
   const [nickname, setNickname] = useState("");
   const [nicknames, setNicknames] = useState([]);
+
+  // Additional info
+  const [additionalInfo, setAdditionalInfo] = useState({
+    Allergies: "Fag, tag, lag",
+    tag: "Swag, bag, dag",
+    lag: "Mag",
+  });
 
   const updateCustomer = async (customerId) => {
     setIsEditMode(false);
@@ -180,6 +188,12 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
           address={address}
           phoneNumber={phoneNumber}
           nicknames={nicknames}
+        />
+      )}
+      {isEditMode && (
+        <AdditionalInfoForm
+          additionalInfo={additionalInfo}
+          setAdditionalInfo={setAdditionalInfo}
         />
       )}
       {isEditMode && (
