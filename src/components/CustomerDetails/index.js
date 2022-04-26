@@ -99,6 +99,8 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
       onClose();
       try {
         await deleteDoc(doc(db, "customers", customerId));
+        deleteDoc(doc(db, "additionalInfo", customerId));
+
         toast.success(`Deleted customer "${customerName}"`);
       } catch (error) {
         toast.error("Something happened. Failed to delete.");
