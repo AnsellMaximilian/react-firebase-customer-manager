@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import Details from "./Details";
 import Form from "./Form";
 import AdditionalInfoForm from "./AdditionalInfoForm";
+import AdditionalInfo from "./AdditionalInfo";
 
 export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [isEditMode, setIsEditMode] = useState(isNew || false);
@@ -190,11 +191,13 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
           nicknames={nicknames}
         />
       )}
-      {isEditMode && (
+      {isEditMode ? (
         <AdditionalInfoForm
           additionalInfo={additionalInfo}
           setAdditionalInfo={setAdditionalInfo}
         />
+      ) : (
+        <AdditionalInfo additionalInfo={additionalInfo} />
       )}
       {isEditMode && (
         <div className="text-right px-4 py-2 border-t border-gray-200">
