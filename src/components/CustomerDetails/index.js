@@ -8,7 +8,7 @@ import {
   addDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
@@ -281,3 +281,5 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
     <CircleLoader />
   );
 };
+
+export default CustomerDetails;

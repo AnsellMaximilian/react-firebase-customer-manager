@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import { CustomerDetails } from "./CustomerDetails";
 import { FaFilePdf } from "react-icons/fa";
+import CustomerDetails from "./CustomerDetails";
 
 export const CustomerList = ({ customers, regions }) => {
   const [globalFilter, setGlobalFilter] = useState("");
