@@ -3,10 +3,12 @@ import CircleLoader from "react-spinners/CircleLoader";
 import {
   updateDoc,
   doc,
+  getDoc,
   Timestamp,
   collection,
   addDoc,
   deleteDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import Swal from "sweetalert2";
@@ -22,17 +24,14 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [customerName, setCustomerName] = useState("");
   const [customerRegion, setCustomerRegion] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Nicknames
   const [nickname, setNickname] = useState("");
   const [nicknames, setNicknames] = useState([]);
 
   // Additional info
-  const [additionalInfo, setAdditionalInfo] = useState({
-    Allergies: "Fag, tag, lag",
-    tag: "Swag, bag, dag",
-    lag: "Mag",
-  });
+  const [additionalInfo, setAdditionalInfo] = useState({});
 
   const updateCustomer = async (customerId) => {
     setIsEditMode(false);
@@ -66,7 +65,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
       return;
     }
     try {
-      await addDoc(collection(db, "customers"), {
+      const newCustomer = await addDoc(collection(db, "customers"), {
         name: customerName,
         region: customerRegion,
         address: address,
@@ -74,6 +73,8 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         nicknames: nicknames,
         createdAt: Timestamp.now(),
       });
+
+      setDoc(doc(db, "additionalInfo", newCustomer.id), additionalInfo);
 
       toast.success(`Added customer "${customerName}"`);
     } catch (error) {
@@ -119,18 +120,30 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
     );
 
   useEffect(() => {
-    if (customer) {
-      setAddress(customer.address);
-      setPhoneNumber(customer.phoneNumber);
-      setCustomerName(customer.name);
-      setCustomerRegion(customer.region);
-      setNicknames(customer.nicknames || []);
-    }
+    (async () => {
+      if (customer) {
+        setAddress(customer.address);
+        setPhoneNumber(customer.phoneNumber);
+        setCustomerName(customer.name);
+        setCustomerRegion(customer.region);
+        setNicknames(customer.nicknames || []);
+        if (!isNew) {
+          const additionalInfo = await getDoc(
+            doc(db, "additionalInfo", customer.id)
+          );
+          setAdditionalInfo(
+            additionalInfo.exists() ? additionalInfo.data() : {}
+          );
+        }
+        setIsLoading(false);
+      }
+    })();
   }, [customer]);
 
-  return customer &&
-    // address &&
-    // phoneNumber &&
+  return !isLoading &&
+    customer &&
+    //     // address &&
+    //     // phoneNumber &&
     customerRegion &&
     regions.length > 0 ? (
     <div>
