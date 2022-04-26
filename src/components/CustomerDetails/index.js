@@ -50,6 +50,8 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         nicknames: nicknames,
       });
 
+      setDoc(doc(db, "additionalInfo", customerId), additionalInfo);
+
       toast.success(`Updated customer "${customerName}"`);
     } catch (error) {
       toast.error("Something happened. Failed to update.");
@@ -138,7 +140,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
         setIsLoading(false);
       }
     })();
-  }, [customer]);
+  }, [customer, isNew]);
 
   return !isLoading &&
     customer &&
