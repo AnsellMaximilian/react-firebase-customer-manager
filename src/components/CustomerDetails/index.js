@@ -146,11 +146,13 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
 
   return !isLoading ? (
     <div>
-      <div className="flex justify-between p-4 border-b border-gray-200">
+      <div className="flex justify-between p-4 text-white bg-primary">
         <h2 className="font-bold text-2xl">
           {isNew
             ? "Create Customer"
-            : `${isEditMode ? "Editing " : ""} ${customerName}`}
+            : isEditMode
+            ? `Edit ${customerName}`
+            : "Customer Details"}
         </h2>
         <button
           className="ml-2 hover:text-black text-gray-600"
