@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CircleLoader from "react-spinners/CircleLoader";
+import FadeLoader from "react-spinners/FadeLoader";
 import {
   updateDoc,
   doc,
@@ -149,7 +149,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
     //     // address &&
     //     // phoneNumber &&
     customerRegion &&
-    regions.length > 0 ? (
+    regions.length > 1000 ? (
     <div>
       <div className="flex justify-between p-4 border-b border-gray-200">
         <h2 className="font-bold text-2xl">
@@ -234,7 +234,9 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
       )}
     </div>
   ) : (
-    <CircleLoader />
+    <div className="flex items-center justify-center w-full h-full">
+      <FadeLoader color="rgb(21 128 61)" />
+    </div>
   );
 };
 
