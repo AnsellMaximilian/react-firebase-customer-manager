@@ -155,7 +155,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
             : "Customer Details"}
         </h2>
         <button
-          className="ml-2 hover:text-black text-gray-600"
+          className="ml-2 hover:text-gray-400 text-white"
           onClick={onClose}
         >
           Close
