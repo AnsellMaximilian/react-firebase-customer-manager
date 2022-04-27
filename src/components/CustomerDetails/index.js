@@ -144,12 +144,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
     })();
   }, [customer, isNew]);
 
-  return !isLoading &&
-    customer &&
-    //     // address &&
-    //     // phoneNumber &&
-    customerRegion &&
-    regions.length > 1000 ? (
+  return !isLoading ? (
     <div>
       <div className="flex justify-between p-4 border-b border-gray-200">
         <h2 className="font-bold text-2xl">
