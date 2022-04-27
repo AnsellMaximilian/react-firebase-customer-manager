@@ -152,7 +152,7 @@ export const CustomerList = ({ customers, regions }) => {
         onRequestClose={() => setCustomerDetails(null)}
         style={{
           overlay: { backgroundColor: "rgba(0, 0, 0, 0.6)" },
-          content: { padding: 0 },
+          content: { padding: 0, border: "none" },
         }}
       >
         <CustomerDetails
