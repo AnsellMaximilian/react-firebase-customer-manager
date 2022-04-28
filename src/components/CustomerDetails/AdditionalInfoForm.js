@@ -32,23 +32,23 @@ const AdditionalInfoForm = ({ additionalInfo, setAdditionalInfo }) => {
       <div className="text-2xl font-bold mb-4">Additional Information</div>
       <div className="mb-2">
         <div className="text-xl font-bold">New Info</div>
-        <div className="flex gap-4 items-end">
+        <div className="flex flex-col md:flex-row gap-4 items-end">
           <div>
             <div className="text-lg font-semibold">Key</div>
             <input
               placeholder="Key"
               value={newKey}
               onChange={(e) => setNewKey(e.target.value)}
-              className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+              className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none min-w-0"
             />
           </div>
           <div>
-            <div className="text-lg font-semibold">Key</div>
+            <div className="text-lg font-semibold">Value</div>
             <input
               placeholder="Value"
               value={newValue}
               onChange={(e) => setNewValue(e.target.value)}
-              className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+              className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none min-w-0"
             />
           </div>
           <button className="btn-secondary" onClick={addNewInfo}>
@@ -70,7 +70,7 @@ const AdditionalInfoForm = ({ additionalInfo, setAdditionalInfo }) => {
                     [key]: e.target.value,
                   }))
                 }
-                className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+                className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none min-w-0"
               />
               <button
                 className="bg-red-600 text-white rounded-md px-2"

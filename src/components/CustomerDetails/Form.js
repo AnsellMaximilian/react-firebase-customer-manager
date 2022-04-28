@@ -24,7 +24,7 @@ const Form = ({
           placeholder="Customer Name"
           value={customerName}
           onChange={(e) => setCustomerName(e.target.value)}
-          className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+          className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none min-w-0"
         />
       </div>
 
@@ -35,11 +35,11 @@ const Form = ({
             placeholder="Nicknames"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
-            className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+            className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none min-w-0"
           />
           <button className="btn-secondary">Add</button>
         </form>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {nicknames.map((nickname, index) => (
             <div
               className="flex gap-1 shadow-md rounded-full border border-gray-200 px-2"
@@ -56,7 +56,7 @@ const Form = ({
         <h3 className="text-lg font-semibold">Region</h3>
         <div>
           <select
-            className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+            className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none min-w-0"
             value={customerRegion}
             onChange={(e) => setCustomerRegion(e.target.value)}
           >
@@ -73,7 +73,7 @@ const Form = ({
         <textarea
           value={address}
           placeholder="Customer Address"
-          className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+          className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none min-w-0"
           onChange={(e) => setAddress(e.target.value)}
         ></textarea>
       </div>
@@ -84,7 +84,7 @@ const Form = ({
           placeholder="Customer Phone"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+          className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none min-w-0"
         />
       </div>
     </div>
