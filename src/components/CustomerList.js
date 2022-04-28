@@ -134,11 +134,13 @@ export const CustomerList = ({ customers, regions }) => {
                       key={customer.id}
                       className={`hover:bg-green-200 cursor-pointer p-2 grid grid-cols-12 ${
                         index % 2 === 0 ? "bg-green-100" : "bg-green-50"
-                      }`}
+                      } text-xs md:text-base`}
                     >
                       <div className="col-span-3">{customer.name}</div>
-                      <div className="col-span-3">{customer.phoneNumber}</div>
-                      <div className="col-span-6 text-left">
+                      <div className="col-span-4 md:col-span-3">
+                        {customer.phoneNumber}
+                      </div>
+                      <div className="col-span-5 md:col-span-6 text-left">
                         {customer.address}
                       </div>
                     </div>
