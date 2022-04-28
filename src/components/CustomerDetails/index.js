@@ -111,7 +111,7 @@ export const CustomerDetails = ({ customer, onClose, isNew, regions }) => {
   const addNickname = (e) => {
     e.preventDefault();
     if (nickname) {
-      setNicknames((prev) => [...prev, nickname]);
+      setNicknames((prev) => [...prev, ...nickname.split(/[\s]*,[\s]*/g)]);
       setNickname("");
     } else {
       toast.error("Cannot be empty");

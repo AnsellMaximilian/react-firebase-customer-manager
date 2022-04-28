@@ -32,7 +32,7 @@ const Form = ({
         <h3 className="text-lg font-semibold">Nicknames</h3>
         <form className="flex gap-2 mb-2" onSubmit={addNickname}>
           <input
-            placeholder="Customer Name"
+            placeholder="Nicknames"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             className="rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
