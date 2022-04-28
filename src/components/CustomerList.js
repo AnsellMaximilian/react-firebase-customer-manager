@@ -73,7 +73,7 @@ export const CustomerList = ({ customers, regions }) => {
           <FaFilePdf className="" />
         </button>
       </div>
-      <div className="mb-4 grid grid-cols-12 gap-4">
+      <div className="mb-4 grid grid-cols-12 gap-4 items-end">
         <div className="col-span-8">
           <label
             htmlFor="searchFilter"
@@ -84,7 +84,7 @@ export const CustomerList = ({ customers, regions }) => {
           <input
             id="searchFilter"
             type="search"
-            className="w-full rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none"
+            className="w-full rounded-md border-gray-300 border p-1 ring-primary focus:ring-1 outline-none min-w-0"
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
             placeholder="Search..."
