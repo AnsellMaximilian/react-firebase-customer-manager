@@ -25,7 +25,7 @@ export const LoginPage = () => {
     })();
   };
   return (
-    <div className="mx-auto px-4 container">
+    <div className="mx-auto px-4 container mb-4">
       <div>
         <img src={logo} alt="logo" className="w-64 mx-auto my-8" />
       </div>
