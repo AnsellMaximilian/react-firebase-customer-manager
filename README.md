@@ -4,3 +4,4 @@
 - [ ] Fix modals on mobile
 - ~[ ] Display first found phone number or address if the primary one isn't found~
 - [x] Adding multiple nicknames in one input using commas.
+- [ ] Sorting alphabetically
