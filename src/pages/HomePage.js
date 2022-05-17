@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Header } from "../components/Header";
 import { CustomerList } from "../components/CustomerList";
@@ -11,7 +11,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     const unsubCustomers = onSnapshot(
-      collection(db, "customers"),
+      query(collection(db, "customers"), orderBy("name")),
       (customersSnapshot) => {
         const customers = customersSnapshot.docs.map((doc) => ({
           id: doc.id,
