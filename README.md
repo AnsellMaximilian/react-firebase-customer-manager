@@ -44,6 +44,6 @@ The design of the customer data React application should be responsive and easy 
 
 ![image](https://user-images.githubusercontent.com/56351143/231938892-85feab36-2fd9-4ec7-a674-f2144ab2ef10.png)
 
-## Main page
+### Main page
 
 ![image](https://user-images.githubusercontent.com/56351143/231939009-b3274749-767b-49a8-b1a6-971d7429979d.png)
